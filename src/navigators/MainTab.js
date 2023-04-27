@@ -18,9 +18,9 @@ const MainTab = () => {
                 }else if (route.name === 'Favorito'){
                     nomeIcone = focused
                 }
-                return (<Icon.Activity fill='#000'  width={24} height={24} />)
+                return (<Icon.User fill='#000'  width={24} height={24} />)
             },
-            tabBarActiveTintColor: 'cyan',
+            tabBarActiveTintColor: 'rgb(0, 163, 255)',
             tabBarInactiveTintColor: 'gray',
             headerShown: false
         })}
