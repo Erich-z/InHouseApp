@@ -12,13 +12,15 @@ const MainTab = () => {
     <TabMain.Navigator
         screenOptions={({route,}) => ({
             tabBarIcon: ({focused}) =>{
-                let nomeIcone;
+                let cor = focused ? 'rgb(0, 163, 255)' : '#fff';
                 if (route.name === 'Home'){
-                    nomeIcone = focused 
+                    return (<Icon.Home stroke='#000' fill={cor}  width={24} height={24} />)
                 }else if (route.name === 'Favorito'){
-                    nomeIcone = focused
+                    return (<Icon.Heart stroke='#000' fill={cor} width={24} height={24} />)
+                }else if (route.name === 'Usuario'){
+                    return (<Icon.User stroke='#000'  fill={cor} width={24} height={24} />)
                 }
-                return (<Icon.User fill='#000'  width={24} height={24} />)
+                
             },
             tabBarActiveTintColor: 'rgb(0, 163, 255)',
             tabBarInactiveTintColor: 'gray',
