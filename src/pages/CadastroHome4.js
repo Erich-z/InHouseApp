@@ -12,7 +12,7 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
 
-const App = () => {
+const App = ({navigation}) => {
   const [images, setImages] = useState([]);
   const MAX_IMAGES = 4;
   const handleSelectImages = async () => {

@@ -1,12 +1,36 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import TabFavoritoScreen from '../pages/TabFavoritoScreen';
 import TabHomeScreen from '../pages/TabHomeScreen';
 import TabUsersScreen from '../pages/TabUserScreen';
 import * as Icon from "react-native-feather";
+import Cadastro1 from '../pages/CadastroHome1';
+import Cadastro2 from '../pages/CadastroHome2';
+import Cadastro3 from '../pages/CadastroHome3';
+import Cadastro4 from '../pages/CadastroHome4';
 
 const TabMain = createBottomTabNavigator();
- 
+const StackNav = createStackNavigator();
+
+const StackNavigator = () => {
+    return(
+        <StackNav.Navigator
+            initialRouteName="Main"
+            screenOptions={()=>({
+                headerShown:false
+            })}>
+            <StackNav.Screen name="Main" component={MainTab}/>
+            <StackNav.Screen name="Cadastro" component={Cadastro1}/>
+            <StackNav.Screen name="Cadastro2" component={Cadastro2}/>
+            <StackNav.Screen name="Cadastro3" component={Cadastro3}/>
+            <StackNav.Screen name="Cadastro4" component={Cadastro4}/>
+        </StackNav.Navigator>
+    )
+}
+  
+   
+
 const MainTab = () => {
     return(
     <TabMain.Navigator
@@ -47,4 +71,4 @@ const MainTab = () => {
     </TabMain.Navigator>
 )}
 
-export default MainTab
+export default StackNavigator

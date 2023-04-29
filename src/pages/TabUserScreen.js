@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Button, Image, TouchableOpacity} from 'react-native';
 import * as Icon from 'react-native-feather';
 
-const TabUsersScreen = () => {
+const TabUsersScreen = ({navigation}) => {
   return (
     <View
       style={{
@@ -49,7 +49,7 @@ const TabUsersScreen = () => {
           width: '70%',
           borderRadius: 15,
         }}
-        onPress={{}}>
+        onPress={()=>navigation.push('Cadastro')}>
         <Text style={{fontWeight: 'bold', color: '#000', fontSize: 14}}>
           Anunciar Imovel
         </Text>

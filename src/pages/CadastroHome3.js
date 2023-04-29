@@ -12,7 +12,7 @@ import {
 import style from '../css/style';
 import * as Icon from 'react-native-feather';
 
-function PaginaInicial() {
+function PaginaInicial({navigation}) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <View
@@ -49,7 +49,7 @@ function PaginaInicial() {
           
         </View>
         <View style={style.prox}>
-          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}}>
+          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}} onPress={()=>navigation.push('Cadastro4')}>
             <Icon.ChevronRight
               stroke="#000"
               width={50}
