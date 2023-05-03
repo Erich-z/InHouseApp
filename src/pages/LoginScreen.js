@@ -18,7 +18,7 @@ import {NativeBaseProvider} from 'native-base';
 
 import * as Icon from 'react-native-feather';
 
-function loginIn() {
+function LoginIn({navigation}) {
   return (
     <NativeBaseProvider>
       <Center>
@@ -45,11 +45,11 @@ function loginIn() {
           </Button>
           <Button size="sm" borderRadius='20' h="10" colorScheme="secondary" marginBottom='5'>Continue with Google</Button>
           <Center>
-          <Button size="sm" borderRadius='10' w="80%" h="10">Sign In</Button>
+          <Button size="sm" borderRadius='10' w="80%" h="10"  onPress={()=>navigation.push('Main')}>Sign In</Button>
           </Center>
           
           <View style={{alignItems: 'center', margin: 5}}>
-          <Text style={{fontWeight: 'bold', color: '#000'}}>Don't have an account? <Text style={{color: '#1e90ff', fontWeight: 'bold'}}> Sign Up</Text></Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>Don't have an account? <Text style={{color: '#1e90ff', fontWeight: 'bold'}}  onPress={()=>navigation.push('CadastroIn')}> Sign Up</Text></Text>
           <Text style={{fontWeight: 'bold', color: '#1e90ff'}}>Forgot Password</Text>
           </View>
           
@@ -60,4 +60,4 @@ function loginIn() {
   );
 }
 
-export default loginIn;
+export default LoginIn;

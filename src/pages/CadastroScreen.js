@@ -13,11 +13,11 @@ import {styles} from '../css/style';
 import React from 'react';
 import {NativeBaseProvider} from 'native-base';
 
-function cadastroInhouse() {
+function CadastroInhouse({navigation}) {
   return (
     <NativeBaseProvider>
       <Center>
-        <Text style={styles.welcomeInHouse}>Welcome to InHouse</Text>
+        <Text style={{fontWeight: 'bold', color: '#000', marginTop: 50, fontSize: 20}}>Welcome to InHouse</Text>
         <Image
           source={require('../img/logoInhouse.png')}
           alt="Alternate Text"
@@ -32,12 +32,12 @@ function cadastroInhouse() {
           <Input variant="underlined" placeholder="Enter your password" />
           <Input variant="underlined" placeholder="Confirm password" />
 
-          <Button size="sm">Sign Up</Button>
-          <Text>Already have an account?<Text style={{color: '#00ffff', fontWeight: 'bold',}}> Sign In</Text></Text>
+          <Button size="sm" onPress={()=>navigation.push('Login')}>Sign Up</Button>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>Already have an account?<Text style={{color: '#1e90ff', fontWeight: 'bold',}} onPress={()=>navigation.push('Login')}> Sign In</Text></Text>
         </Stack>
       </Center>
     </NativeBaseProvider>
   );
 }
 
-export default cadastroInhouse;
+export default CadastroInhouse;

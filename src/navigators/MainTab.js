@@ -9,6 +9,11 @@ import Cadastro1 from '../pages/CadastroHome1';
 import Cadastro2 from '../pages/CadastroHome2';
 import Cadastro3 from '../pages/CadastroHome3';
 import Cadastro4 from '../pages/CadastroHome4';
+import Login from '../pages/LoginScreen';
+import CadastroIn from '../pages/CadastroScreen';
+import EditarPerfil from '../pages/EditarPerfil';
+import StackNavigatorUser from '../pages/TabUserScreen';
+
 
 const TabMain = createBottomTabNavigator();
 const StackNav = createStackNavigator();
@@ -16,15 +21,18 @@ const StackNav = createStackNavigator();
 const StackNavigator = () => {
     return(
         <StackNav.Navigator
-            initialRouteName="Main"
+            initialRouteName="Login"
             screenOptions={()=>({
                 headerShown:false
             })}>
+            <StackNav.Screen name="Login" component={Login}/>
+            <StackNav.Screen name="CadastroIn" component={CadastroIn}/>
             <StackNav.Screen name="Main" component={MainTab}/>
             <StackNav.Screen name="Cadastro" component={Cadastro1}/>
             <StackNav.Screen name="Cadastro2" component={Cadastro2}/>
             <StackNav.Screen name="Cadastro3" component={Cadastro3}/>
             <StackNav.Screen name="Cadastro4" component={Cadastro4}/>
+            <StackNav.Screen name="EditarPerfil" component={EditarPerfil}/>
         </StackNav.Navigator>
     )
 }
@@ -63,7 +71,7 @@ const MainTab = () => {
         />
         <TabMain.Screen
             name="Usuario"
-            component={TabUsersScreen}
+            component={StackNavigatorUser}
         />
 
 
