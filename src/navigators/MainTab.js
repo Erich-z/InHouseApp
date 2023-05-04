@@ -63,6 +63,7 @@ const MainTab = () => {
         
             name="Home"
             component={TabHomeScreen}
+
             
         />
         <TabMain.Screen

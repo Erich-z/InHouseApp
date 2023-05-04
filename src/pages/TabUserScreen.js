@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, Button, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Button, Image, TouchableOpacity, TouchableHighlight} from 'react-native';
 import * as Icon from 'react-native-feather';
 import EditarPerfil from './EditarPerfil';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -51,13 +51,16 @@ const TabUsersScreen = () => {
                 João Guilherme
               </Text>
               <Button
-                onPress={() => navigation.push('EditarPerfil')}
+                onPress={() => navigation.push('EditarPerfil')
+              }
                 title="Editar Perfil"
                 color="#000"
               />
               <View style={{flexDirection: 'row'}}>
                 <Icon.Mail stroke="#000" width={24} height={24} />
-                <Icon.LogOut stroke="#000" width={24} height={24} />
+                <TouchableHighlight>
+                <Icon.LogOut stroke="#000" width={24} height={24} onPress={() => navigation.push('Login')}/>
+                </TouchableHighlight>
               </View>
             </View>
           </View>
@@ -103,6 +106,7 @@ const StackNavigatorUser = () => {
           })}>
           <StackNav.Screen name="Perfil" component={TabUsersScreen}/>
           <StackNav.Screen name="EditarPerfil" component={EditarPerfil}/>
+          
       </StackNav.Navigator>
   )
 }
