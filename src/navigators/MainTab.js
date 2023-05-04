@@ -3,6 +3,7 @@ import React from 'react';
 import TabFavoritoScreen from '../pages/TabFavoritoScreen';
 import TabHomeScreen from '../pages/TabHomeScreen';
 import TabUsersScreen from '../pages/TabUserScreen';
+import HomeViewScreen from '../pages/HouseView';
 import * as Icon from "react-native-feather";
 
 const TabMain = createBottomTabNavigator();
@@ -28,7 +29,7 @@ const MainTab = () => {
         <TabMain.Screen
         
             name="Home"
-            component={TabHomeScreen}
+            component={HomeViewScreen}
             
         />
         <TabMain.Screen
