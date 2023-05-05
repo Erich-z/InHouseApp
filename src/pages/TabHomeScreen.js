@@ -1,23 +1,21 @@
+// [
+//   {
 
-[
-  {
+//     imgArray:['../img/Image1.jpg', '../img/Image2.jpg', '../img/Image3.jpg'],
+//     city:'Presidente Prudente',
+//     address:'AV Tititi',
+//     price:220
 
-    imgArray:['../img/Image1.jpg', '../img/Image2.jpg', '../img/Image3.jpg'],
-    city:'Presidente Prudente',
-    address:'AV Tititi',
-    price:220
+//   },
+//   {
 
-  },
-  {
+//     imgArray:['../img/Image1.jpg', '../img/Image2.jpg', '../img/Image3.jpg'],
+//     city:'Presidente Prudente',
+//     address:'AV Tititi',
+//     price:220
 
-    imgArray:['../img/Image1.jpg', '../img/Image2.jpg', '../img/Image3.jpg'],
-    city:'Presidente Prudente',
-    address:'AV Tititi',
-    price:220
-
-  },
-]
-
+//   },
+// ]
 
 import React, {useState} from 'react';
 import {
@@ -27,9 +25,10 @@ import {
   StyleSheet,
   ScrollView,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Icon from 'react-native-feather';
 
 const images1 = [
   {source: require('../img/Image1.jpg')},
@@ -46,10 +45,16 @@ const images2 = [
 ];
 
 const CarouselScreen = () => {
-  
   const [activeSlide, setActiveSlide] = useState([0, 2]);
-                                                //  array[0] = 0, array[1] = 2
-
+  const [color, setColor] = useState('black');
+  //  array[0] = 0, array[1] = 2
+  const handlePress = () => {
+    if (color === 'black') {
+      setColor('#1e90ff');
+    } else {
+      setColor('black');
+    }
+  };
   const renderItem = ({item}) => {
     return (
       <View style={styles.slide}>
@@ -60,24 +65,30 @@ const CarouselScreen = () => {
 
   return (
     <ScrollView>
-      <View
-        style={{
-          marginBottom: 60,
-          top: 30,
-          width: 350,
-          flexDirection: 'row',
-          alignItems: 'center',
-          backgroundColor: '#d3d3d3',
-          borderRadius: 30,
-          paddingHorizontal: 10,
-        }}>
-        <TextInput style={{flex: 1, height: 40}} placeholder="Pesquisar..." />
-        <Icon name="search" size={20} color="gray" />
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            marginBottom: 60,
+            top: 30,
+            width: 370,
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#d3d3d3',
+            borderRadius: 30,
+            paddingHorizontal: 10,
+          }}>
+          <Icon.Search stroke={'#000'} width={24} height={24} />
+
+          <TextInput
+            style={{flex: 1, height: 50}}
+            placeholderTextColor="#000"
+            placeholder="Pesquisar..."
+          />
+        </View>
       </View>
 
       <View style={styles.container}>
         <View style={styles.carousel}>
-
           <Carousel
             layout="default"
             data={images1}
@@ -107,23 +118,25 @@ const CarouselScreen = () => {
               inactiveDotScale={0.6}
             />
           </View>
-        
         </View>
 
         <View style={styles.textContainer}>
           <Text style={[styles.text, {textAlign: 'left', fontWeight: 'bold'}]}>
             Presidente Epitácio - SP
           </Text>
-          <Text style={[styles.text, {textAlign: 'left'}]}>Av. Titititi</Text>
-          <Text style={[styles.text, {textAlign: 'left'}]}>R$200 / noite</Text>
+          <Icon.Star style={{justifyContent:'flex-end',alignItems:'flex-end'}} size={24} color={'#000'}/>
+          <Text style={styles.text}>Av. Titititi</Text>
+          <Text style={styles.text}>R$200 / noite</Text>
         </View>
+        
         <View style={styles.heartIconContainer}>
-          <Icon name="heart" size={25} color="red" />
+          <TouchableOpacity onPress={handlePress}>
+            <Icon.Heart width={30} height={30} fill={color} color={color} />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.container}>
         <View style={styles.carousel}>
-
           <Carousel
             layout="default"
             data={images2}
@@ -153,7 +166,6 @@ const CarouselScreen = () => {
               inactiveDotScale={0.6}
             />
           </View>
-        
         </View>
 
         <View style={styles.textContainer}>
@@ -164,7 +176,7 @@ const CarouselScreen = () => {
           <Text style={[styles.text, {textAlign: 'left'}]}>R$200 / noite</Text>
         </View>
         <View style={styles.heartIconContainer}>
-          <Icon name="heart" size={25} color="red" />
+          <Icon.Heart stroke={'#000'} width={30} height={30} />
         </View>
       </View>
     </ScrollView>
@@ -182,28 +194,27 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 20,
-    width: 350,
-    height: 200,
+    width: 370,
+    height: 250,
     resizeMode: 'cover',
   },
   carousel: {
-    height: 200,
-    marginBottom: 10,
+    height: 250,
   },
   textContainer: {
     flex: 1,
-    width: 350,
+    width: 360,
+    marginBottom: 10,
     justifyContent: 'flex-end',
   },
   text: {
-    fontSize: 15,
+    fontSize: 17,
     color: '#000',
   },
   heartIconContainer: {
     position: 'absolute',
     top: 10,
     right: 40,
-    zIndex: 1,
   },
 });
 
