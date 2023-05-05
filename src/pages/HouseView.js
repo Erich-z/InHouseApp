@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { SafeAreaView, Text, View, Dimensions, Image, FlatList, TouchableOpacity } from "react-native/";
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-
+import * as Icon from "react-native-feather";
 const {width} = Dimensions.get('window');
 
 const IMAGES = {
@@ -26,7 +26,7 @@ function App() {
   function onSelect(indexSelected) {
     setIndexSelected(indexSelected)
     flatListRef?.current?.scrollToOffset({
-      offset: indexSelected * 80,
+      offset: indexSelected,
       animated: true, 
     })
   }
@@ -38,10 +38,9 @@ function App() {
 
   return(
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFF', alignItems: 'center'}}>
-      <View style={{flex: 1, borderWidth: 2}}>
+      <View style={{flex: 1, }}>
         <View style={{
-            borderWidth: 2,
-            height: 300,
+            height: 200,
         }}
         >
             <Carousel 
@@ -52,6 +51,8 @@ function App() {
             sliderWidth={width}
             itemWidth={width}
             loop={true}
+            autoplay={true}
+            autoplayInterval={3000}
             renderItem={({item, index}) => (
                 <Image 
                 key={index}
@@ -60,7 +61,7 @@ function App() {
                 />
             )}
             />
-            <View style={{position: 'absolute', zIndex: 10}}>
+            <View style={{position: 'absolute', zIndex: 10, marginLeft: 130, marginTop: 150}}>
                 <Pagination 
                 inactiveDotColor="gray"
                 dotColor={'#3f9ad5'}
@@ -70,10 +71,21 @@ function App() {
                 activeDotIndex={indexSelected}
                 />
             </View>
+            <View style={{width: '100%',  position: 'absolute', alignItems: 'flex-end', marginTop: 22, paddingRight: 26}}>
+              <Icon.Heart stroke={'#3f9ad5'} width={24} height={24} />
+            </View>
         </View>
       </View>
-    
+      <View style={{width: '100%', position: 'absolute', height: '5%', alignItems: 'flex-end', marginTop: 210, paddingRight: 13 }}>
+          <Text style={{color: '#000', fontSize: 15}}><Icon.Star stroke={'#3f9ad5'} width={24} height={24} />4.5</Text>
+      </View>
       
+      <View style={{width: '100%', position: 'absolute', height: '20%', marginTop: 210, paddingLeft: 7, borderWidth: 2, borderColor: '#000'}}>
+          <Text style={{color: '#000', fontSize: 15}}>Presidente Prudente</Text>
+          <Text style={{color: '#000', fontSize: 15}}>Casa para passar o final de semana</Text>
+          <Text style={{color: '#000', fontSize: 15}}>Av. Manoel Goulart - 700</Text>
+          <Text style={{ height:40, color: '#000', fontSize: 15, borderWidth: 2, justifyContent:'center', textAlignVertical:'center'}}><Icon.DollarSign stroke={'#000'} width={20} height={20} />200</Text>          
+      </View>       
     </SafeAreaView>
   )
 }
