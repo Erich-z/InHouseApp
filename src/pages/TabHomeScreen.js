@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 })
 
 
-const ImageF = (item: any) => {
+const ImageF = (item) => {
   // console.log(item.item)
   return (
     <Image
@@ -72,12 +72,12 @@ const TabHomeScreen = () => {
   // updateActiveTab(array)
 
  
-  const Cards = ({ item, index }: any) => {
+  const Cards = ({ item, index }) => {
    
     const [array, setArray] = useState([])
  
     
-    const arr:any = Array(index + 1).fill(0)
+    const arr = Array(index + 1).fill(0)
     const [position, setPosition] = useState(0)
     useEffect(() => {
       // setActiveTab(arr)
@@ -160,10 +160,7 @@ const TabHomeScreen = () => {
       </View>
     );
   }
-  const updateActiveTab = (array:any) => {
-    
-    
-  }
+
   return (
 
     <SafeAreaView style={{ flex: 1, paddingTop: 50 }}>
