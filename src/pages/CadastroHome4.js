@@ -58,7 +58,7 @@ const App = ({navigation}) => {
             top: 20,
           }}>
           <TouchableOpacity
-            style={{ height: 40,padding:10,}}
+            style={{ height: 45,padding:10,}}
             onPress={handleSelectImages}>
             <Text style={{textAlign:'center',color:'#000',fontSize:20,}}>Selecione no maximo 4 imagens</Text>
           </TouchableOpacity>
@@ -79,6 +79,7 @@ const App = ({navigation}) => {
             />
           ))}
         </View>
+
 
         <View style={style.prox}>
           <TouchableOpacity

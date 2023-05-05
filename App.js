@@ -6,7 +6,7 @@ import MainTab from "./src/navigators/MainTab";
 function App(){
   return(
   <NavigationContainer>
-    <MainTab/>
+    <MainTab />
   </NavigationContainer>
   )
 }

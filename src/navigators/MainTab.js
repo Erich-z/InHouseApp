@@ -13,6 +13,7 @@ import Login from '../pages/LoginScreen';
 import CadastroIn from '../pages/CadastroScreen';
 import EditarPerfil from '../pages/EditarPerfil';
 import StackNavigatorUser from '../pages/TabUserScreen';
+import { CommonActions } from '@react-navigation/native';
 
 
 const TabMain = createBottomTabNavigator();
@@ -39,7 +40,8 @@ const StackNavigator = () => {
   
    
 
-const MainTab = () => {
+const MainTab = ({navigation}) => {
+  
     return(
     <TabMain.Navigator
         screenOptions={({route,}) => ({
@@ -56,7 +58,8 @@ const MainTab = () => {
             },
             tabBarActiveTintColor: 'rgb(0, 163, 255)',
             tabBarInactiveTintColor: 'gray',
-            headerShown: false
+            headerShown: false,
+            unmountOnBlur: true,
         })}
     >
         <TabMain.Screen

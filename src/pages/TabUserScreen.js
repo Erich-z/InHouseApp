@@ -4,6 +4,7 @@ import * as Icon from 'react-native-feather';
 import EditarPerfil from './EditarPerfil';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 
 const StackNav = createStackNavigator();
 
@@ -97,7 +98,9 @@ const TabUsersScreen = () => {
   );
 };
 
-const StackNavigatorUser = () => {
+const StackNavigatorUser = ({navigation}) => {
+  
+  
   return(
       <StackNav.Navigator
           initialRouteName="Perfil"
