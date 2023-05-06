@@ -1,18 +1,21 @@
 import Carousel from 'react-native-snap-carousel';
 import React, { useState } from "react";
-import { Text, View, Button, StyleSheet, Image, SafeAreaView, Dimensions } from "react-native";
+import { Text, View, Button, StyleSheet, Image, SafeAreaView, Dimensions, TextInput } from "react-native";
 import { FlatList } from 'react-native';
-import { Alert, Card } from 'native-base';
+import { Alert, Card, Input } from 'native-base';
 // const slideWidth = 280;
 const horizontalMargin = 30;
 const sliderWidth = Dimensions.get('window').width;
 const itemWidth = sliderWidth - horizontalMargin * 2;
 import { Pagination } from 'react-native-snap-carousel';
+import * as Icon from "react-native-feather";
 
-import {useEffect} from 'react'
+import { useEffect } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+  
   },
   image: {
     width: itemWidth,
@@ -44,7 +47,7 @@ const ImageF = (item) => {
 
 const TabHomeScreen = () => {
   // const [activeTab, setActiveTab] = useState<any>([])
- 
+
   const data = [
     {
       title: "Presidente Prudente",
@@ -71,12 +74,12 @@ const TabHomeScreen = () => {
   // const array:any = []
   // updateActiveTab(array)
 
- 
+
   const Cards = ({ item, index }) => {
-   
+
     const [array, setArray] = useState([])
- 
-    
+
+
     const arr = Array(index + 1).fill(0)
     const [position, setPosition] = useState(0)
     useEffect(() => {
@@ -84,18 +87,19 @@ const TabHomeScreen = () => {
       // console.log(arr)
       setArray(arr)
       console.log(arr)
-    
-    },[])
- 
+
+    }, [])
+
     // console.log(array)
     // updateActiveTab(index)
-    
-    
-   
+
+
+
     // console.log(array)
     return (
-      
+
       <View style={styles.container} key={index}>
+     
         <Carousel
           layout={"default"}
 
@@ -117,10 +121,10 @@ const TabHomeScreen = () => {
             const newArr = [...arr];
             newArr[position] = i;
             setArray(newArr);
-          
-            
+
+
           }
-            
+
           } />
         <View
           style={{
@@ -135,7 +139,7 @@ const TabHomeScreen = () => {
         >
           <Pagination
             dotsLength={item.imgUrl.length}
-            
+
             // containerStyle={{ backgroundColor: 'green' }}
             dotStyle={{
               width: 10,
@@ -149,11 +153,11 @@ const TabHomeScreen = () => {
         </View>
 
 
-        <View style={{ marginHorizontal: horizontalMargin }}>
+        <View style={{ marginHorizontal: horizontalMargin, marginBottom:15}}>
           <Text style={styles.title}>{item.title}</Text>
           <Text>{item.body}</Text>
           <Text><Text>R$</Text>{item.price}</Text>
-          <Text>{index}</Text>
+          {/* <Text>{index}</Text> */}
           {/* <Text>{i}</Text> */}
         </View>
 
@@ -163,22 +167,51 @@ const TabHomeScreen = () => {
 
   return (
 
-    <SafeAreaView style={{ flex: 1, paddingTop: 50 }}>
+    <SafeAreaView style={{ flex: 1, paddingTop: 0 }}>
+
+         <View style={{}}>
+         <TouchableOpacity style={{backgroundColor:'#1e90ff', padding:10}}>
+            <Text>Anúncie</Text>
+          </TouchableOpacity>
+         </View>
+         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <View
+            style={{
+              marginVertical: 10,
+              width: itemWidth ,
+          
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: '#d3d3d3',
+              borderRadius: 30,
+            
+              paddingHorizontal: 20,
+            }}>
+            <Icon.Search stroke={'#000'} width={24} height={24} />
+
+            <TextInput
+              style={{ flex: 1, height: 50 }}
+              placeholderTextColor="#000"
+              placeholder="Pesquisar..."
+            />
+          </View>
+        </View>
+       
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 
         <FlatList
           data={data}
-          renderItem={({ item,index }) =>{
+          renderItem={({ item, index }) => {
 
-           
-            return(
-            
-              <Cards item={item} index={index}/>
-              
+
+            return (
+
+              <Cards item={item} index={index} />
+
             )
           }}
 
-          
+
           style={{ flex: 1 }}
           keyExtractor={item => item.id}
         >
