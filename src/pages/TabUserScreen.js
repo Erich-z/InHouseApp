@@ -19,7 +19,7 @@ const TabUsersScreen = () => {
   } */
   const navigation = useNavigation();
 
-  
+ const [image, setImage] = useState(require('../img/default.jpg'));
   return(
     <>
       {/* {editarPerfilScreen && <EditarPerfil />}
@@ -38,9 +38,7 @@ const TabUsersScreen = () => {
               justifyContent: 'center',
             }}>
             <Image
-              source={{
-                uri: 'https://pixabay.com/get/g7d489c9dd2bec216a658bc9506900f13a3e4f25b99cfb71db5fab059c1896649fa2f6135729649e1b0fef0904445e507c8451de00f585a4f81ffc239e060e2253c5597da72dc401adf0145256613ee22_1280.jpg',
-              }}
+              source={image}
               style={{
                 width: 90,
                 height: 90,

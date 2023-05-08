@@ -13,7 +13,7 @@ import {
 import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import Modal from 'react-native-modal';
-import ImageCropPicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 function EditarPerfil({navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -27,30 +27,18 @@ function EditarPerfil({navigation}) {
     setModalVisible2(!isModalVisible2);
   };
 
-  const [isModalVisible3, setModalVisible3] = useState(false);
+  const [image, setImage] = useState(require('../img/default.jpg'));
 
-  const toggleModal3 = () => {
-    setModalVisible3(!isModalVisible3);
-  };
-
-  const [images, setImages] = useState([]);
-  const MAX_IMAGES = 4;
-  const handleSelectImages = async () => {
-    try {
-      const selectedImages = await ImageCropPicker.openPicker({
-        multiple: true,
-        mediaType: 'photo',
-      });
-
-      if (selectedImages.length > MAX_IMAGES) {
-        alert(`Você só pode selecionar ${MAX_IMAGES} imagens`);
-        return;
-      }
-
-      setImages(selectedImages.map(image => ({uri: image.path})));
-    } catch (error) {
-      console.log(error);
-    }
+  const pickImage = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      cropperCircleOverlay: true,
+      compressImageQuality: 0.7,
+    }).then(newImage => {
+      setImage({uri: newImage.path});
+    });
   };
 
   return (
@@ -67,19 +55,16 @@ function EditarPerfil({navigation}) {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <TouchableOpacity onPress={toggleModal3}>
-          
-        <Image
-          source={{
-            uri: 'https://pixabay.com/get/g7d489c9dd2bec216a658bc9506900f13a3e4f25b99cfb71db5fab059c1896649fa2f6135729649e1b0fef0904445e507c8451de00f585a4f81ffc239e060e2253c5597da72dc401adf0145256613ee22_1280.jpg',
-          }}
-          style={{
-            width: 90,
-            height: 90,
-            borderRadius: 90 / 2,
-          }}
-          
-        />
+        <TouchableOpacity onPress={pickImage}>
+          <Image
+            source={image} 
+            style={{
+              width: 90,
+              height: 90,
+              borderRadius: 90 / 2,
+              borderWidth: 2,
+            }}
+          />
         </TouchableOpacity>
         <View style={{flexDirection: 'column', marginLeft: 15}}>
           <Text style={{color: '#000', fontWeight: 'bold'}}>
@@ -119,7 +104,6 @@ function EditarPerfil({navigation}) {
             marginTop: 10,
             padding: 5,
             shadowColor: 'black',
-            
           }}
           onPress={toggleModal2}>
           <Icon.Mail stroke="#000" width={24} height={24} />
@@ -167,7 +151,6 @@ function EditarPerfil({navigation}) {
             <Text style={{color: '#000', fontWeight: 'bold'}}>Salvar</Text>
           </TouchableOpacity>
         </View>
-        
       </View>
 
       <Modal isVisible={isModalVisible2}>
@@ -180,16 +163,30 @@ function EditarPerfil({navigation}) {
             alignItems: 'center',
             borderRadius: 50,
           }}>
-          <Text style={{fontWeight: 'bold', color: '#000', marginBottom: 10, fontSize: 15}}>Alterar Email</Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#000',
+              marginBottom: 10,
+              fontSize: 15,
+            }}>
+            Alterar Email
+          </Text>
           <TextInput
-           style={{height: 35,  borderWidth: 1, width: '50%', marginBottom: 10, color: '#000'}}
-           placeholderTextColor={'#000'}
-           placeholder="Nova Email"
+            style={{
+              height: 35,
+              borderWidth: 1,
+              width: '50%',
+              marginBottom: 10,
+              color: '#000',
+            }}
+            placeholderTextColor={'#000'}
+            placeholder="Nova Email"
           />
           <TextInput
-           style={{height: 35,  borderWidth: 1, width: '50%', marginBottom: 10}}
-           placeholderTextColor={'#000'}
-           placeholder="Confirmar Email"
+            style={{height: 35, borderWidth: 1, width: '50%', marginBottom: 10}}
+            placeholderTextColor={'#000'}
+            placeholder="Confirmar Email"
           />
 
           <TouchableHighlight
@@ -218,16 +215,30 @@ function EditarPerfil({navigation}) {
             alignItems: 'center',
             borderRadius: 50,
           }}>
-          <Text style={{fontWeight: 'bold', color: '#000', marginBottom: 10, fontSize: 15}}>Alterar Senha</Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#000',
+              marginBottom: 10,
+              fontSize: 15,
+            }}>
+            Alterar Senha
+          </Text>
           <TextInput
-           style={{height: 35,  borderWidth: 1, width: '50%', marginBottom: 10, color: '#000'}}
-           placeholderTextColor={'#000'}
-           placeholder="Nova senha"
+            style={{
+              height: 35,
+              borderWidth: 1,
+              width: '50%',
+              marginBottom: 10,
+              color: '#000',
+            }}
+            placeholderTextColor={'#000'}
+            placeholder="Nova senha"
           />
           <TextInput
-           style={{height: 35,  borderWidth: 1, width: '50%', marginBottom: 10}}
-           placeholderTextColor={'#000'}
-           placeholder="Confirmar Senha"
+            style={{height: 35, borderWidth: 1, width: '50%', marginBottom: 10}}
+            placeholderTextColor={'#000'}
+            placeholder="Confirmar Senha"
           />
 
           <TouchableHighlight
@@ -246,49 +257,6 @@ function EditarPerfil({navigation}) {
           </TouchableHighlight>
         </View>
       </Modal>
-      <Modal isVisible={isModalVisible3}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: '#ffff',
-            maxHeight: 300,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 50,
-          }}>
-          <Text style={{fontWeight: 'bold', color: '#000', marginBottom: 10, fontSize: 15}}>Alterar Foto</Text>
-          <TouchableHighlight onPress={handleSelectImages}>
-            <Text style={{color:'#000'}}>A</Text>
-          </TouchableHighlight>
-          {images.map(image => (
-            <Image
-              key={image.uri}
-              source={image}
-              style={{
-                width: 90,
-                height: 90,
-                borderRadius: 90 / 2,
-              }}
-            />
-          ))}
-
-          <TouchableHighlight
-            onPress={toggleModal3}
-            style={{
-              borderRadius: 10,
-              backgroundColor: '#00A3FF',
-              width: 100,
-              height: 40,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{padding: 10, fontWeight: 'bold', color: '#000'}}>
-              Salvar
-            </Text>
-          </TouchableHighlight>
-        </View>
-      </Modal>
-      
     </View>
   );
 }

@@ -24,10 +24,7 @@ function PaginaInicial({navigation}) {
           width: '95%',
         }}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <Icon.Youtube
-          stroke="#000"
-          width={100}
-          height={100}/>
+        <Image style={{width:206, height:140}} source={require('../img/logoInhouse.png')} />
         </View>
         
 
