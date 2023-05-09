@@ -12,14 +12,18 @@
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
+    "deprecated-react-native-prop-types": "^4.1.0",
     "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-native": "0.71.7",
     "react-native-feather": "^1.1.2",
+    "react-native-gesture-handler": "^2.9.0",
     "react-native-image-crop-picker": "^0.39.0",
+    "react-native-reanimated-carousel": "^3.3.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.20.0",
-    "react-native-svg": "^12.1.1",
+    "react-native-snap-carousel": "^3.9.1",
+    "react-native-svg": "^12.5.1",
     "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
@@ -30,6 +34,7 @@
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
+    "@types/react-native-snap-carousel": "^3.8.5",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
