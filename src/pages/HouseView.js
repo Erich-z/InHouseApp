@@ -84,7 +84,7 @@ function App() {
           <Text style={{color: '#000', fontSize: 15}}>4.5</Text>
       </View>
       
-      <View style={{width: '100%', position: 'absolute', height: '16%', marginTop: 210, paddingLeft: 7, borderWidth: 2, borderColor: '#000'}}>
+      <View style={{width: '100%', position: 'absolute', height: '16%', marginTop: 210, paddingLeft: 7,}}>
           <Text style={{color: '#000', fontSize: 15}}>Presidente Prudente</Text>
           <Text style={{color: '#000', fontSize: 15}}>Casa para passar o final de semana</Text>
           <Text style={{color: '#000', fontSize: 15}}>Av. Manoel Goulart - 700</Text>
@@ -92,22 +92,30 @@ function App() {
               <Icon.DollarSign stroke={'#000'} width={20} height={20} />
           </View>
           <Text style={{ width: '35%', height:40, color: '#000', marginTop: 2, marginLeft: 15, fontSize: 15,}}>200 / Diaria</Text> 
-    
       </View>
-      <View style={{width: '100%', position: 'absolute', height: '22%', marginTop: 325, paddingLeft: 7, borderWidth: 2, borderColor: '#8a2be2'}}>
+      
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+
+      <View style={{width: '100%', height: 1, marginBottom: 409, backgroundColor: '#000'}} />
+ 
+ 
+</View>
+
+      <View style={{width: '100%', position: 'absolute', height: '22%', marginTop: 325, paddingLeft: 7, /*borderWidth: 2, borderColor: '#8a2be2'*/}}>
           <Text style={{color: '#000', fontSize: 15}}>Descrição:</Text>
           <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
           </Text>   
       </View>   
-      <View style={{width: '100%', position: 'absolute', height: '22%', marginTop: 482, paddingLeft: 7, borderWidth: 2, borderColor: '#1e90ff'}}>
-          <Text style={{color: '#000', fontSize: 15}}>Descrição:</Text>
-          <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-          </Text>   
-      </View>    
+
+      <View style={{width: '100%', position: 'absolute', height: '22%', marginTop: 482, paddingLeft: 7, /*borderWidth: 2, borderColor: '#1e90ff'*/}}>
+            <Text style={{color: '#000', fontSize: 15}}>Comentários</Text>
+      </View>
+      <View style={{width: '100%', position: 'absolute', height: '5%', alignItems: 'flex-end', marginTop: 480, paddingRight: 13 }}>
+          <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>15 comentários</Text> 
+      </View>
+
     </SafeAreaView>
   )
 }
