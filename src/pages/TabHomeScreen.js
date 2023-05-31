@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 
 const ImageF = (item) => {
-  // console.log(item.item)
+
   return (
     <Image
 
@@ -48,6 +48,105 @@ const ImageF = (item) => {
       style={styles.image}
     />
   )
+}
+
+const Cards = ({ item, index }) => {
+
+  const itemIndex = item.imgUrl.length
+
+  const [color, setColor] = useState('black');
+  const [dot, setDot] = useState(0)
+  const handleDotPressIncrement = (index) => {
+      setDot(index)
+  }
+  const handleDotPressDecrement = () => {
+    setDot(dot - 1)
+}
+  //  array[0] = 0, array[1] = 2
+  const handlePress = () => {
+    if (color === 'black') {
+      setColor('#1e90ff');
+    } else {
+      setColor('black');
+    }
+  };
+
+  return (
+
+    <View style={styles.container} key={index}>
+      <View style={styles.heartIconContainer} >
+        <TouchableOpacity style={styles.heartIconContainer} onPress={() => handlePress(index)}>
+          <Icon.Heart width={30} height={30} fill={color} color={color} />
+        </TouchableOpacity>
+      </View>
+      <Carousel
+        layout={"default"}
+       /*  firstItem={item.length} */
+        loop={false}
+        enableSnap={true}          
+        /* horizontal={true}
+        useScrollView={true}
+        initialScrollIndex={item.imgUrl.length} */
+        /* getItemLayout={(data, index) => (
+          {length: width, offset: width * index, index}
+)} */
+       /* loopClonesPerSide={item.imgUrl.length}*/
+        data={item.imgUrl}
+        sliderWidth={sliderWidth}
+        itemWidth={itemWidth}
+        itemHeight={100}
+        /* renderItem={ImageF} */
+        inactiveSlideOpacity={0}
+        inactiveSlideScale={1}
+        onSnapToItem={handleDotPressIncrement}
+        onStar
+     
+        renderItem={({ item, index }) => { 
+          console.log(item);
+          return (
+         
+          <Image key={index}  style={styles.image} source={{ uri: item }} />
+        )}}
+        autoplay={false}
+
+
+         />
+      <View
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: 70,
+          left: 0,
+        }}
+      >
+        <Pagination
+          dotsLength={item.imgUrl.length}
+          loop={false}          
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            marginHorizontal: 8, backgroundColor: '#fff'
+          }}
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.6}    
+          onSnapToItem={handleDotPressIncrement}
+          activeDotIndex={dot} />
+      </View>
+      <View style={{ marginHorizontal: horizontalMargin, marginBottom: 15 }}>
+        <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+          <Text style={styles.title}>{item.title}</Text>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <Icon.Star width={20} height={20} fill={'#000'} color={'#000'} />
+              <Text>{item.rate}</Text>
+            </View>            
+        </View>
+        <Text>{item.body}</Text>
+        <Text><Text>R$</Text>{item.price} </Text>
+      </View>
+
+    </View>
+  );
 }
 
 
@@ -82,127 +181,13 @@ const TabHomeScreen = () => {
       rate:5,
       fav:true,
       id: '3'
-    },
+    }, 
   ];
   // const array:any = []
   // updateActiveTab(array)
 
 
-  const Cards = ({ item, index }) => {
-
-    const [array, setArray] = useState([])
-
-
-    const arr = Array(index + 1).fill(0)
-    const [position, setPosition] = useState(0)
-
-    const [color, setColor] = useState('black');
-    //  array[0] = 0, array[1] = 2
-    const handlePress = (index) => {
-
-      const favIndex = array
-      console.log(item)
-      // setArray([...array, ...favIndex.fav])
-      if (color === 'black') {
-        setColor('#1e90ff');
-      } else {
-        setColor('black');
-      }
-    };
-    useEffect(() => {
-      // setActiveTab(arr)
-      // console.log(arr)
-      setArray(arr)
-      console.log(arr)
-
-    }, [])
-
-    // console.log(array)
-    // updateActiveTab(index)
-
-
-
-    // console.log(array)
-    return (
-
-      <View style={styles.container} key={index}>
-        <View style={styles.heartIconContainer} >
-          <TouchableOpacity style={styles.heartIconContainer} onPress={() => handlePress(index)}>
-            <Icon.Heart width={30} height={30} fill={color} color={color} />
-          </TouchableOpacity>
-        </View>
-        <Carousel
-          layout={"default"}
-
-          loop
-          // ref={ref => console.log(ref)}
-          onTouchStart={(e) => {
-
-            console.log(index)
-            setPosition(index)
-          }}
-          data={item.imgUrl}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-          itemHeight={100}
-          renderItem={ImageF}
-          inactiveSlideOpacity={0}
-          inactiveSlideScale={1}
-          onSnapToItem={i => {
-            const newArr = [...arr];
-            newArr[position] = i;
-            setArray(newArr);
-
-
-          }
-
-          } />
-        <View
-          style={{
-            position: 'absolute',
-            right: 0,
-            bottom: 70,
-            left: 0,
-
-            // borderTopWidth: 1,
-            // borderColor: '#ddd',set
-            // backgroundColor: '#fff'
-          }}
-        >
-          <Pagination
-            dotsLength={item.imgUrl.length}
-
-            // containerStyle={{ backgroundColor: 'green' }}
-            dotStyle={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              marginHorizontal: 8, backgroundColor: '#fff'
-            }}
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-            activeDotIndex={array[position]} />
-        </View>
-
-
-        <View style={{ marginHorizontal: horizontalMargin, marginBottom: 15 }}>
-          <View style={{justifyContent:'space-between', flexDirection:'row'}}>
-            <Text style={styles.title}>{item.title}</Text>
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                <Icon.Star width={20} height={20} fill={'#000'} color={'#000'} />
-                <Text>{item.rate}</Text>
-              </View>
-            
-          </View>
-          <Text>{item.body}</Text>
-          <Text><Text>R$</Text>{item.price}</Text>
-          {/* <Text>{index}</Text> */}
-          {/* <Text>{i}</Text> */}
-        </View>
-
-      </View>
-    );
-  }
+  
 
   return (
 
@@ -241,16 +226,8 @@ const TabHomeScreen = () => {
         <FlatList
           data={data}
           renderItem={({ item, index }) => {
-
-
-            return (
-
-              <Cards item={item} index={index} />
-
-            )
+            return (<Cards item={item} index={index} />)
           }}
-
-
           style={{ flex: 1 }}
           keyExtractor={item => item.id}
         >
