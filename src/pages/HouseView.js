@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ScrollView
 } from 'react-native/';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import * as Icon from 'react-native-feather';
@@ -204,10 +205,12 @@ function App() {
         </Text>
       </View>
 
-    <View style={{flex: 1, padding: 10}}>
-      <Comment author="John Doe" message="This is a great article!" />
-      <Comment author="Jane Smith" message="I enjoyed reading it." />
-      <Comment author="Bob Johnson" message="Keep up the good work!" />
+    <View style={{ flex: 1, padding: 11, marginTop: 370, }}>
+     <ScrollView horizontal={true}>
+        <Comment author="John Doe" message="This is a great article!" />
+        <Comment author="Jane Smith" message="I enjoyed reading it." />
+        <Comment author="Bob Johnson" message="Keep up the good work!" />
+      </ScrollView>
     </View>
       
     </SafeAreaView>

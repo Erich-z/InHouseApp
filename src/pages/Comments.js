@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 const Comment = ({ author, message }) => {
   return (
@@ -12,13 +12,17 @@ const Comment = ({ author, message }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
+    borderWidth: 1,
+    borderColor: '#00a3ff', 
     padding: 10,
     marginBottom: 10,
+    height: 150,
+    marginLeft: 8
   },
   author: {
     fontWeight: 'bold',
     marginBottom: 5,
+    width: '80%'
   },
   message: {
     fontSize: 16,
