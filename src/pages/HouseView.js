@@ -13,6 +13,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import * as Icon from 'react-native-feather';
 import {Button, Center} from 'native-base';
 import Comment from './Comments';
+import Modal from 'react-native-modal';
 const {width} = Dimensions.get('window');
 
 const IMAGES = {
@@ -46,6 +47,8 @@ function App() {
     if (touched === indexSelected) return;
     carouselRef?.current?.snapToItem(touched);
   }
+
+  
 
   return (
     <SafeAreaView
