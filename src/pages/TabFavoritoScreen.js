@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, View, Button } from "react-native";
+import {Text, View, Button, Image} from 'react-native';
+import * as Icon from 'react-native-feather';
 
 const TabFavoritoScreen = () =>{
   

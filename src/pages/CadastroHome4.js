@@ -12,7 +12,7 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
 
-const App = () => {
+const App = ({navigation}) => {
   const [images, setImages] = useState([]);
   const MAX_IMAGES = 4;
   const handleSelectImages = async () => {
@@ -58,7 +58,7 @@ const App = () => {
             top: 20,
           }}>
           <TouchableOpacity
-            style={{ height: 40,padding:10,}}
+            style={{ height: 45,padding:10,}}
             onPress={handleSelectImages}>
             <Text style={{textAlign:'center',color:'#000',fontSize:20,}}>Selecione no maximo 4 imagens</Text>
           </TouchableOpacity>
@@ -79,6 +79,7 @@ const App = () => {
             />
           ))}
         </View>
+
 
         <View style={style.prox}>
           <TouchableOpacity
