@@ -142,7 +142,7 @@ const Cards = ({ item, index }) => {
             </View>            
         </View>
         <Text>{item.body}</Text>
-        <Text><Text>R$</Text>{item.price} </Text>
+        <Text><Text>R$ </Text>{item.price} </Text>
       </View>
 
     </View>
