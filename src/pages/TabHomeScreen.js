@@ -1,5 +1,5 @@
 import Carousel from 'react-native-snap-carousel';
-import React, {useState} from 'react';
+import { useState } from 'react';
 import {
   Text,
   View,
@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {FlatList} from 'react-native';
-import {Alert, Card, Input} from 'native-base';
+
 // const slideWidth = 280;
 const horizontalMargin = 30;
 const sliderWidth = Dimensions.get('window').width;
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ImageF = item => {
+const ImageF = (item) => {
   // console.log(item.item)
   return <Image source={{uri: item.item}} style={styles.image} />;
 };
