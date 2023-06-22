@@ -108,7 +108,7 @@ const TabHomeScreen = ({navigation}) => {
     //  array[0] = 0, array[1] = 2
     const handlePress = index => {
       const favIndex = array;
-      console.log(item);
+      // console.log(item);
       // setArray([...array, ...favIndex.fav])
       if (color === 'black') {
         setColor('#1e90ff');
@@ -120,7 +120,7 @@ const TabHomeScreen = ({navigation}) => {
       // setActiveTab(arr)
       // console.log(arr)
       setArray(arr);
-      console.log(arr);
+      // console.log(arr);
     }, []);
 
     // console.log(array)
@@ -138,10 +138,10 @@ const TabHomeScreen = ({navigation}) => {
         </View>
         <Carousel
           layout={'default'}
-          loop
+          loop={false}
           // ref={ref => console.log(ref)}
           onTouchStart={e => {
-            console.log(index);
+            // console.log(index);
             setPosition(index);
           }}
           data={item.imgUrl}
