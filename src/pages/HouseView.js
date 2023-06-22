@@ -5,13 +5,13 @@ import {
   View,
   Dimensions,
   Image,
-  FlatList,
+  ScrollView,
+  StyleSheet,
   TouchableOpacity,
-  ScrollView
 } from 'react-native/';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import * as Icon from 'react-native-feather';
-import {Button, Center} from 'native-base';
+import {Button, Pressable, NativeBaseProvider, Input} from 'native-base';
 import Comment from './Comments';
 import Modal from 'react-native-modal';
 const {width} = Dimensions.get('window');
@@ -34,6 +34,11 @@ function App() {
   const [indexSelected, setIndexSelected] = useState(0);
   const carouselRef = useRef();
   const flatListRef = useRef();
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   function onSelect(indexSelected) {
     setIndexSelected(indexSelected);
@@ -48,9 +53,8 @@ function App() {
     carouselRef?.current?.snapToItem(touched);
   }
 
-  
-
   return (
+    <NativeBaseProvider>
     <SafeAreaView
       style={{flex: 1, backgroundColor: '#FFF', alignItems: 'center'}}>
       <View style={{flex: 1}}>
@@ -208,18 +212,58 @@ function App() {
         </Text>
       </View>
 
-    <View style={{ flex: 1, padding: 11, marginTop: 370, }}>
-     <ScrollView horizontal={true}>
-        <Comment author="John Doe" message="This is a great article!" />
-        <Comment author="Jane Smith" message="I enjoyed reading it." />
-        <Comment author="Bob Johnson" message="Keep up the good work!" />
-      </ScrollView>
-    </View>
-      
+      <View style={{flex: 1, padding: 11, marginTop: 370,}}>
+        <ScrollView horizontal={true}>
+          
+            <Comment author="John Doe" message="This is a great article! kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" />
+         
+          <Comment author="Jane Smith" message="I enjoyed reading it." />
+          <Comment author="Bob Johnson" message="Keep up the good work!" />
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          height: '5%',
+          alignItems: 'flex-end',
+          marginTop: 290,
+          paddingRight: 13,
+        }}>
+        <TouchableOpacity onPress={toggleModal}>
+          <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>
+            Comentar
+          </Text>
+        </TouchableOpacity>
+      </View>
+     
+        <Modal isVisible={isModalVisible}>
+          <View style={{backgroundColor: '#FFF', padding: 20}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            Deixe seu comentário
+            </Text>
+            <Input
+              placeholder="Comentar"
+              multiline
+              onChangeText={comment => setComment(comment)}
+              value={{}}
+              style={{marginTop: 10}}
+            />
+            <Button
+              onPress={() => submitComment()}
+              style={{marginTop: 10}}>
+              <Text style={{color: '#FFF'}}>Enviar</Text>
+            </Button>
+            <Button
+              onPress={() => setModalVisible(false)}
+              style={{marginTop: 10}}>
+              <Text style={{color: '#FFF'}}>Cancelar</Text>
+            </Button>
+          </View>
+        </Modal>
     </SafeAreaView>
+      </NativeBaseProvider>
   );
 }
-
-
 
 export default App;

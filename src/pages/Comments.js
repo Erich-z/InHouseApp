@@ -20,11 +20,11 @@ const Comment = ({ author, message }) => {
 
 const styles = StyleSheet.create({
   container: {
+    height: 'auto',
     borderWidth: 1,
     borderColor: '#00a3ff',
     padding: 10,
     marginBottom: 10,
-    height: 115,
     marginLeft: 8,
   },
  
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
+    width: 100,
   },
 });
 
