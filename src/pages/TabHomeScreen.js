@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ImageF = item => {
+const ImageF = (item) => {
   // console.log(item.item)
   return <Image source={{uri: item.item}} style={styles.image} />;
 };
@@ -136,9 +136,131 @@ const TabHomeScreen = ({navigation}) => {
             <Icon.Heart width={30} height={30} fill={color} color={color} />
           </TouchableOpacity>
         </View>
-    )
-}
+        <Carousel
+          layout={'default'}
+          loop
+          // ref={ref => console.log(ref)}
+          onTouchStart={e => {
+            console.log(index);
+            setPosition(index);
+          }}
+          data={item.imgUrl}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          itemHeight={100}
+          renderItem={ImageF}
+          inactiveSlideOpacity={0}
+          inactiveSlideScale={1}
+          onSnapToItem={i => {
+            const newArr = [...arr];
+            newArr[position] = i;
+            setArray(newArr);
+          }}
+        />
+        <View
+          style={{
+            position: 'absolute',
+            right: 0,
+            bottom: 70,
+            left: 0,
 
+            // borderTopWidth: 1,
+            // borderColor: '#ddd',set
+            // backgroundColor: '#fff'
+          }}>
+          <Pagination
+            dotsLength={item.imgUrl.length}
+            // containerStyle={{ backgroundColor: 'green' }}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 8,
+              backgroundColor: '#fff',
+            }}
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+            activeDotIndex={array[position]}
+          />
+        </View>
 
+        <View style={{marginHorizontal: horizontalMargin, marginBottom: 15}}>
+          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+            <Text style={styles.title}>{item.title}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Icon.Star width={20} height={20} fill={'#000'} color={'#000'} />
+              <Text>{item.rate}</Text>
+            </View>
+          </View>
+          <Text>{item.body}</Text>
+          <Text>
+            <Text>R$</Text>
+            {item.price}
+          </Text>
+          {/* <Text>{index}</Text> */}
+          {/* <Text>{i}</Text> */}
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView style={{flex: 1, paddingTop: 0, backgroundColor: '#fff'}}>
+      <View
+        style={{
+          justifyContent: 'flex-end',
+          flexDirection: 'row',
+          marginTop: 10,
+          marginHorizontal: horizontalMargin,
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#1e90ff',
+            width: 100,
+            padding: 8,
+            borderRadius: 10,
+          }}
+          onPress={() => navigation.push('Cadastro')}
+          >
+          <Text style={{textAlign: 'center', color: '#fff', fontWeight: '700'}}>
+            Anúncie
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            marginVertical: 10,
+            width: itemWidth,
+
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#d3d3d3',
+            borderRadius: 30,
+
+            paddingHorizontal: 20,
+          }}>
+          <Icon.Search stroke={'#000'} width={24} height={24} />
+
+          <TextInput
+            style={{flex: 1, height: 50}}
+            placeholderTextColor="#000"
+            placeholder="Pesquisar..."
+          />
+        </View>
+      </View>
+
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        <FlatList
+          data={data}
+          renderItem={({item, index}) => {
+            return <Cards item={item} index={index} />;
+          }}
+          style={{flex: 1}}
+          keyExtractor={item => item.id}></FlatList>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 export default TabHomeScreen;
