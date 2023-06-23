@@ -1,4 +1,4 @@
-import react from 'react';
+import react, {useEffect, useState} from 'react';
 import {Text, SafeAreaView, TextInput} from 'react-native';
 import {
   Button,
@@ -12,8 +12,24 @@ import {
 import {styles} from '../css/style';
 import React from 'react';
 import {NativeBaseProvider} from 'native-base';
+import { useSelector, useDispatch } from "react-redux";
+import { criarUsuarioRequest } from '../store/modules/usuario/actions';
+import ModalSpinner from './ModalSpinner';
 
 function CadastroInhouse({navigation}) {
+  const dispatch = useDispatch();
+  const usuario = useSelector(({usuario}) => usuario);
+  const [dados, setDados] = useState({usuarioNome: '',usuarioEmail: '', usuarioSenha: ''});
+  const handleChange = (text, nomeInput) => {
+    setDados({...dados,[nomeInput]: text});
+  }
+  //acao de fazer login ao clicar no botao entrar
+  const handleCadastrar = () => {
+    dispatch(criarUsuarioRequest(dados, navigation));
+  }
+  if(usuario.loading) {
+    return <ModalSpinner />
+  }
   return (
     <NativeBaseProvider>
       <Center>
@@ -27,12 +43,15 @@ function CadastroInhouse({navigation}) {
       </Center>
       <Center>
         <Stack space={2} w="90%" mx="auto">
-          <Input variant="underlined" placeholder="Enter your full name" />
-          <Input variant="underlined" placeholder="Enter your email" />
-          <Input variant="underlined" placeholder="Enter your password" />
+          <Input variant="underlined" placeholder="Enter your full name"  onChangeText={(text) => handleChange(text,'usuarioNome')}
+        value={dados.usuarioNome}/>
+          <Input variant="underlined" placeholder="Enter your email" onChangeText={(text) => handleChange(text,'usuarioEmail')}
+        value={dados.usuarioEmail}/>
+          <Input variant="underlined" placeholder="Enter your password"  onChangeText={(text) => handleChange(text,'usuarioSenha')}
+        value={dados.usuarioSenha}/>
           <Input variant="underlined" placeholder="Confirm password" />
 
-          <Button size="sm" onPress={()=>navigation.push('Login')}>Sign Up</Button>
+          <Button size="sm" onPress={()=> handleCadastrar()}>Sign Up</Button>
           <Text style={{fontWeight: 'bold', color: '#000'}}>Already have an account?<Text style={{color: '#1e90ff', fontWeight: 'bold',}} onPress={()=>navigation.push('Login')}> Sign In</Text></Text>
         </Stack>
       </Center>
