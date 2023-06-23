@@ -14,6 +14,7 @@ import * as Icon from 'react-native-feather';
 import {Button, Pressable, NativeBaseProvider, Input} from 'native-base';
 import Comment from './Comments';
 import Modal from 'react-native-modal';
+import { PageScrollView } from 'pagescrollview'
 const {width} = Dimensions.get('window');
 
 const IMAGES = {
@@ -55,7 +56,9 @@ function App() {
 
   return (
     <NativeBaseProvider>
+      <PageScrollView>
     <SafeAreaView
+    
       style={{flex: 1, backgroundColor: '#FFF', alignItems: 'center'}}>
       <View style={{flex: 1}}>
         <View
@@ -108,6 +111,7 @@ function App() {
           </View>
         </View>
       </View>
+      
       <View
         style={{
           width: '100%',
@@ -193,7 +197,7 @@ function App() {
           width: '100%',
           position: 'absolute',
           height: '22%',
-          marginTop: 465,
+          marginTop: 480,
           paddingLeft: 7 /*borderWidth: 2, borderColor: '#1e90ff'*/,
         }}>
         <Text style={{color: '#000', fontSize: 15}}>Comentários</Text>
@@ -204,7 +208,7 @@ function App() {
           position: 'absolute',
           height: '5%',
           alignItems: 'flex-end',
-          marginTop: 465,
+          marginTop: 480,
           paddingRight: 13,
         }}>
         <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>
@@ -212,7 +216,7 @@ function App() {
         </Text>
       </View>
 
-      <View style={{flex: 1, padding: 11, marginTop: 370,}}>
+      <View style={{flex: 1, padding: 11, marginTop: 320,}}>
         <ScrollView horizontal={true}>
           
             <Comment author="John Doe" message="This is a great article! kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" />
@@ -227,12 +231,12 @@ function App() {
           position: 'absolute',
           height: '5%',
           alignItems: 'flex-end',
-          marginTop: 290,
-          paddingRight: 13,
+          marginTop: 208,
+          paddingRight: 80,
         }}>
         <TouchableOpacity onPress={toggleModal}>
-          <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>
-            Comentar
+          <Text style={{color: '#000',  paddingTop: 5}}>
+          <Icon.MessageCircle stroke={'#3f9ad5'} width={30} height={30} />
           </Text>
         </TouchableOpacity>
       </View>
@@ -262,6 +266,7 @@ function App() {
           </View>
         </Modal>
     </SafeAreaView>
+    </PageScrollView>
       </NativeBaseProvider>
   );
 }
