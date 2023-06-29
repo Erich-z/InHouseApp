@@ -10,8 +10,12 @@ import {
   Dimensions,
   TextInput,
   TouchableOpacity,
+  Touchable,
 } from 'react-native';
 import {FlatList} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 // const slideWidth = 280;
 const horizontalMargin = 30;
@@ -128,7 +132,8 @@ const TabHomeScreen = ({navigation}) => {
 
     // console.log(array)
     return (
-      <View style={styles.container} key={index}>
+      <TouchableOpacity  onPress={() => navigation.navigate('HouseView')}>
+         <View style={styles.container} key={index}>
         <View style={styles.heartIconContainer}>
           <TouchableOpacity
             style={styles.heartIconContainer}
@@ -201,6 +206,7 @@ const TabHomeScreen = ({navigation}) => {
           {/* <Text>{i}</Text> */}
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 

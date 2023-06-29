@@ -9,6 +9,7 @@ import Cadastro1 from '../pages/CadastroHome1';
 import Cadastro2 from '../pages/CadastroHome2';
 import Cadastro3 from '../pages/CadastroHome3';
 import Cadastro4 from '../pages/CadastroHome4';
+import HouseView from '../pages/HouseView';
 import Login from '../pages/LoginScreen';
 import CadastroIn from '../pages/CadastroScreen';
 import EditarPerfil from '../pages/EditarPerfil';
@@ -37,6 +38,7 @@ const StackNavigator = () => {
           <StackNav.Screen name="Cadastro3" component={Cadastro3} />
           <StackNav.Screen name="Cadastro4" component={Cadastro4} />
           <StackNav.Screen name="EditarPerfil" component={EditarPerfil} />
+          <StackNav.Screen name="HouseView" component={HouseView} />
         </>
       ) : (
         <>
