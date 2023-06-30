@@ -12,6 +12,7 @@ import Cadastro4 from '../pages/CadastroHome4';
 import HouseView from '../pages/HouseView';
 import Login from '../pages/LoginScreen';
 import CadastroIn from '../pages/CadastroScreen';
+import ChatList from '../pages/ChatList';
 import EditarPerfil from '../pages/EditarPerfil';
 import StackNavigatorUser from '../pages/TabUserScreen';
 import {CommonActions} from '@react-navigation/native';
@@ -39,6 +40,8 @@ const StackNavigator = () => {
           <StackNav.Screen name="Cadastro4" component={Cadastro4} />
           <StackNav.Screen name="EditarPerfil" component={EditarPerfil} />
           <StackNav.Screen name="HouseView" component={HouseView} />
+          <StackNav.Screen name="ChatList" component={ChatList} />
+
         </>
       ) : (
         <>

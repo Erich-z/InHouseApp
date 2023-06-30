@@ -15,7 +15,6 @@ import {Button, Pressable, NativeBaseProvider, Input} from 'native-base';
 import Comment from './Comments';
 import Modal from 'react-native-modal';
 import {PageScrollView} from 'pagescrollview';
-import MainTab from '../navigators/MainTab'
 const {width} = Dimensions.get('window');
 
 const IMAGES = {

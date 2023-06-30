@@ -56,7 +56,7 @@ const TabUsersScreen = () => {
                 color="#000"
               />
               <View style={{flexDirection: 'row'}}>
-                <Icon.Mail stroke="#000" width={24} height={24} />
+                <Icon.Mail stroke="#000" width={24} height={24} onPress={() => navigation.push('ChatList')}/>
                 <TouchableHighlight>
                 <Icon.LogOut stroke="#000" width={24} height={24} onPress={() => navigation.push('Login')}/>
                 </TouchableHighlight>
