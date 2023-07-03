@@ -1,7 +1,7 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from './actions';
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: true,
     token: null,
     error: null
 }
