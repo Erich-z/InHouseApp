@@ -13,6 +13,22 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 
 function PaginaInicial({navigation}) {
+  const [novAnuncio, setNovaAnuncio] = useState({
+    imoveisDiaria: "",
+    imoveisDescricao: "",
+    imoveisCep: "",
+    imoveisRua: "",
+    imoveisBairro: "",
+    imoveisCidade: "",
+    imoveisNumero: "",
+    imoveisQuarto: "",
+    imoveisBanheiro: "",
+    imoveisCozinha: "",
+    imoveisDiferencial: "",
+    AnuncioFavorito: "",
+    mednota: ""
+  });
+  
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <View
@@ -34,7 +50,8 @@ function PaginaInicial({navigation}) {
             width: '95%',
           }}>
           <Text style={style.texto}>Informe seu CEP</Text>
-          <TextInput style={style.input}></TextInput>
+          <TextInput style={style.input}
+          ></TextInput>
           <Text style={style.texto}>Rua</Text>
           <TextInput style={style.input}></TextInput>
           <Text style={style.texto}>Bairro</Text>
