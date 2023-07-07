@@ -14,8 +14,24 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
+import { updateUsuarioRequest } from '../store/modules/usuario/actions';
+import {useDispatch, useSelector} from 'react-redux';
+
 
 function EditarPerfil({navigation}) {
+  const dispatch = useDispatch();
+  const usuario = useSelector(({usuario}) => usuario);
+  console.log(usuario);
+  const [usuarioTeste, setusuarioTeste] = useState({
+    usuarioNome: usuario?.usuario.usuarioNome,
+  });
+  const [dados, setDados] = useState({usuarioSenha: usuario?.usuario.usuarioSenha});
+  const handleChange = (text, nomeInput) => {
+    setDados({...dados,[nomeInput]: text});
+  }
+  console.log(dados)
+  
+  console.log(usuarioTeste);
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -68,7 +84,7 @@ function EditarPerfil({navigation}) {
         </TouchableOpacity>
         <View style={{flexDirection: 'column', marginLeft: 15}}>
           <Text style={{color: '#000', fontWeight: 'bold'}}>
-            João Guilherme
+          {usuarioTeste.usuarioNome}
           </Text>
         </View>
       </View>
@@ -205,6 +221,7 @@ function EditarPerfil({navigation}) {
           </TouchableHighlight>
         </View>
       </Modal>
+
       <Modal isVisible={isModalVisible}>
         <View
           style={{
@@ -234,6 +251,7 @@ function EditarPerfil({navigation}) {
             }}
             placeholderTextColor={'#000'}
             placeholder="Nova senha"
+            onChangeText={(text) => handleChange(text,'usuarioSenha')}
           />
           <TextInput
             style={{height: 35, borderWidth: 1, width: '50%', marginBottom: 10}}
@@ -242,7 +260,11 @@ function EditarPerfil({navigation}) {
           />
 
           <TouchableHighlight
-            onPress={toggleModal}
+            onPress={()=>{toggleModal
+              dispatch(updateUsuarioRequest(usuario.id, dados))
+            }
+            
+            }
             style={{
               borderRadius: 10,
               backgroundColor: '#00A3FF',

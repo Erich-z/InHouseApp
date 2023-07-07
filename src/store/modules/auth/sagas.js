@@ -1,12 +1,14 @@
 import {call, put, all, takeLatest} from 'redux-saga/effects';
 import api from '../../../../service/api';
 import { loginFailure, loginSuccess, LOGIN_REQUEST } from './actions';
+import { setUsuario } from '../usuario/actions';
 
 export function* login(action) {
     try {
         const response = yield call(() => api.post('/login', action.payload));
         console.log(response.data.token);
         yield put(loginSuccess(response.data.token));
+        yield put(setUsuario(response.data.usuario));
     } catch (error) {
         yield put(loginFailure(error));
     }
