@@ -23,6 +23,7 @@ export function* criarUsuario(action) {
 
 function* updateUsuario(action) {
   try {
+    console.log(action.payload.id)
     const response = yield call(() =>
       api.put(`/usuarios/${action.payload.id}`, action.payload.usuario),
     );

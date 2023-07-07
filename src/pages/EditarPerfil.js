@@ -25,7 +25,8 @@ function EditarPerfil({navigation}) {
   const [usuarioTeste, setusuarioTeste] = useState({
     usuarioNome: usuario?.usuario.usuarioNome,
   });
-  const [dados, setDados] = useState({usuarioSenha: usuario?.usuario.usuarioSenha});
+
+  const [dados, setDados] = useState({usuarioSenha: ''});
   const handleChange = (text, nomeInput) => {
     setDados({...dados,[nomeInput]: text});
   }
@@ -260,8 +261,10 @@ function EditarPerfil({navigation}) {
           />
 
           <TouchableHighlight
-            onPress={()=>{toggleModal
-              dispatch(updateUsuarioRequest(usuario.id, dados))
+            onPress={()=>{
+              toggleModal();
+              usuario.usuario.usuarioSenha = dados.usuarioSenha;
+              dispatch(updateUsuarioRequest(usuario.usuario.id, usuario.usuario))
             }
             
             }
