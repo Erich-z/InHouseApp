@@ -13,6 +13,10 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 
 function PaginaInicial({navigation}) {
+
+
+
+  console.log(navigation.params)
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <View
