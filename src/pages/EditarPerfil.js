@@ -26,7 +26,7 @@ function EditarPerfil({navigation}) {
     usuarioNome: usuario?.usuario.usuarioNome,
   });
 
-  const [dados, setDados] = useState({usuarioSenha: ''});
+  const [dados, setDados] = useState({usuarioSenha: '', usuarioEmail: ''});
   const handleChange = (text, nomeInput) => {
     setDados({...dados,[nomeInput]: text});
   }
@@ -198,7 +198,8 @@ function EditarPerfil({navigation}) {
               color: '#000',
             }}
             placeholderTextColor={'#000'}
-            placeholder="Nova Email"
+            placeholder="Novo Email"
+            onChangeText={(text) => handleChange(text,'usuarioEmail')}
           />
           <TextInput
             style={{height: 35, borderWidth: 1, width: '50%', marginBottom: 10}}
@@ -207,7 +208,12 @@ function EditarPerfil({navigation}) {
           />
 
           <TouchableHighlight
-            onPress={toggleModal2}
+            onPress={()=>{
+              toggleModal2()
+              usuario.usuario.usuarioEmail = dados.usuarioEmail
+              dispatch(updateUsuarioRequest(usuario.usuario.id, usuario.usuario))
+             }
+            }
             style={{
               borderRadius: 10,
               backgroundColor: '#00A3FF',
