@@ -8,15 +8,41 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View,
+
 } from 'react-native';
 import style from '../css/style';
 import * as Icon from 'react-native-feather';
+import { useRoute } from '@react-navigation/native';
 
 function PaginaInicial({navigation}) {
+  const route = useRoute();
+
+  const data = route.params.dados
+ 
+  const [novoAnuncio, setNovoAnuncio] = useState({
+    imoveisCep: data.imoveisCep,
+    imoveisRua: data.imoveisRua,
+    imoveisBairro: data.imoveisBairro,
+    imoveisDiaria: data.imoveisDiaria,
+    imoveisCidade: data.imoveisCidade,
+    imoveisNumero: data.imoveisNumero,
+    imoveisDescricao: data.imoveisDescricao,
+    imoveisQuarto: data.imoveisQuarto,
+    imoveisBanheiro: data.imoveisBanheiro,
+    imoveisCozinha: data.imoveisCozinha,
+    imoveisDiferencial: data.imoveisDiferencial,
+    usuarioNome: data.usuarioNome,
+    usuarioCPF: data.usuarioCPF,
+    usuarioTelefone: data.usuarioTelefone
+    
+  });
+  function handleChange(text, nomeInput) {
+    setNovoAnuncio({...novoAnuncio, [nomeInput]: text});
+
+    console.log(novoAnuncio)
+  }
 
 
-
-  console.log(navigation.params)
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <View
@@ -38,19 +64,19 @@ function PaginaInicial({navigation}) {
             width: '95%',
           }}>
           <Text style={style.texto}>Informe seu CEP</Text>
-          <TextInput style={style.input}></TextInput>
+          <TextInput  onChangeText={text => handleChange(text, 'imoveisCep')} style={style.input}></TextInput>
           <Text style={style.texto}>Rua</Text>
-          <TextInput style={style.input}></TextInput>
+          <TextInput  onChangeText={text => handleChange(text, 'imoveisRua')} style={style.input}></TextInput>
           <Text style={style.texto}>Bairro</Text>
-          <TextInput style={style.input}></TextInput>
+          <TextInput  onChangeText={text => handleChange(text, 'imoveisBairro')} style={style.input}></TextInput>
           <Text style={style.texto}>Cidade</Text>
-          <TextInput style={style.input}></TextInput>
+          <TextInput  onChangeText={text => handleChange(text, 'imoveisCidade')} style={style.input}></TextInput>
           <Text style={style.texto}>Numero</Text>
-          <TextInput style={style.input}></TextInput>
+          <TextInput  onChangeText={text => handleChange(text, 'imoveisNumero')} style={style.input}></TextInput>
           
         </View>
         <View style={style.prox}>
-          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}}onPress={()=>navigation.push('Cadastro3')}>
+          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}}onPress={()=>navigation.push('Cadastro3', {dados:novoAnuncio})}>
             <Icon.ChevronRight
               stroke="#000"
               width={50}

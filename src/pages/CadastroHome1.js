@@ -14,12 +14,15 @@ import * as Icon from 'react-native-feather';
 import {useDispatch, useSelector} from 'react-redux';
 
 function Cadastro1({navigation}) {
-  const usuario = useSelector(({usuario}) => usuario);
-  const [usuarioTeste, setusuarioTeste] = useState({
-    usuarioNome: usuario?.usuario.usuarioNome,
-    usuarioCPF: usuario?.usuario.usuarioCPF,
-    usuarioTelefone: usuario?.usuario.usuarioTelefone,
+  const usuario = useSelector(({usuario}) => usuario.usuario);
+  
+  const [usuarioTeste] = useState({
+    usuarioNome: usuario?.usuarioNome,
+    usuarioCPF: usuario?.usuarioCPF,
+    usuarioTelefone: usuario?.usuarioTelefone,
   });
+
+
   const [novoAnuncio, setNovoAnuncio] = useState({
     imoveisDiaria: '',
     imoveisCep: '',
@@ -32,13 +35,18 @@ function Cadastro1({navigation}) {
     imoveisBanheiro: '',
     imoveisCozinha: '',
     imoveisDiferencial: '',
+    usuarioNome:usuarioTeste.usuarioNome,
+    usuarioCpf:usuarioTeste.usuarioCPF,
+    usuarioTelefone:usuarioTeste.usuarioTelefone
+    
   });
 
   function handleChange(text, nomeInput) {
     setNovoAnuncio({...novoAnuncio, [nomeInput]: text});
+    console.log(novoAnuncio)
   }
 
-  console.log(usuarioTeste);
+  // console.log(usuarioTeste);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <View
@@ -70,11 +78,20 @@ function Cadastro1({navigation}) {
             width: '95%',
           }}>
           <Text style={style.texto}>Informe seu nome</Text>
-          <TextInput style={style.input}>{usuarioTeste.usuarioNome}</TextInput>
+          <TextInput 
+              style={style.input}
+              onChangeText={text => handleChange(text, 'usuarioNome')}
+              >{usuarioTeste.usuarioNome}</TextInput>
           <Text style={style.texto}>Informe seu CPF</Text>
-          <TextInput style={style.input}>{usuarioTeste.usuarioCPF}</TextInput>
+          <TextInput style={style.input}
+              value={usuarioTeste.usuarioCPF}
+               onChangeText={text => handleChange(text, 'usuarioCPF')}
+          ></TextInput>
           <Text style={style.texto}>Informe seu telefone</Text>
-          <TextInput style={style.input}>
+          <TextInput style={style.input}
+            onChangeText={text => handleChange(text, 'usuarioTelefone')}
+          >
+        
             {usuarioTeste.usuarioTelefone}
           </TextInput>
           <Text style={style.texto}>Preço pela diaria</Text>

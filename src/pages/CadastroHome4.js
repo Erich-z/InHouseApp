@@ -11,8 +11,37 @@ import {
 import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
+import { useRoute } from '@react-navigation/native';
 
 const App = ({navigation}) => {
+
+  const route = useRoute();
+
+  const data = route.params.dados
+  
+  console.log(data)
+  const [novoAnuncio, setNovoAnuncio] = useState({
+    imoveisCep: data.imoveisCep,
+    imoveisRua: data.imoveisRua,
+    imoveisBairro: data.imoveisBairro,
+    imoveisDiaria: data.imoveisDiaria,
+    imoveisCidade: data.imoveisCidade,
+    imoveisNumero: data.imoveisNumero,
+    imoveisDescricao: data.imoveisDescricao,
+    imoveisQuarto: data.imoveisQuarto,
+    imoveisBanheiro: data.imoveisBanheiro,
+    imoveisCozinha: data.imoveisCozinha,
+    imoveisDiferencial: data.imoveisDiferencial,
+    usuarioNome: data.usuarioNome,
+    usuarioCPF: data.usuarioCPF,
+    usuarioTelefone: data.usuarioTelefone
+    
+  });
+
+  function handleChange(text, nomeInput) {
+    setNovoAnuncio({...novoAnuncio, [nomeInput]: text});
+  }
+
   const [images, setImages] = useState([]);
   const MAX_IMAGES = 4;
   const handleSelectImages = async () => {
