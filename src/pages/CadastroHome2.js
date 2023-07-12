@@ -33,7 +33,8 @@ function PaginaInicial({navigation}) {
     imoveisDiferencial: data.imoveisDiferencial,
     usuarioNome: data.usuarioNome,
     usuarioCPF: data.usuarioCPF,
-    usuarioTelefone: data.usuarioTelefone
+    usuarioTelefone: data.usuarioTelefone,
+    usuarioId: data.usuarioId
     
   });
   function handleChange(text, nomeInput) {

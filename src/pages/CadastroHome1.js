@@ -15,11 +15,12 @@ import {useDispatch, useSelector} from 'react-redux';
 
 function Cadastro1({navigation}) {
   const usuario = useSelector(({usuario}) => usuario.usuario);
-  
+  console.log(usuario)
   const [usuarioTeste] = useState({
     usuarioNome: usuario?.usuarioNome,
     usuarioCPF: usuario?.usuarioCPF,
     usuarioTelefone: usuario?.usuarioTelefone,
+   
   });
 
 
@@ -37,12 +38,14 @@ function Cadastro1({navigation}) {
     imoveisDiferencial: '',
     usuarioNome:usuarioTeste.usuarioNome,
     usuarioCpf:usuarioTeste.usuarioCPF,
-    usuarioTelefone:usuarioTeste.usuarioTelefone
+    usuarioTelefone:usuarioTeste.usuarioTelefone,
     
   });
 
   function handleChange(text, nomeInput) {
     setNovoAnuncio({...novoAnuncio, [nomeInput]: text});
+
+    console.log({nomeInput:text})
     console.log(novoAnuncio)
   }
 

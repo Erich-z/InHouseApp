@@ -13,14 +13,14 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import { useRoute } from '@react-navigation/native';
 import { criarAnuncioRequest } from '../store/modules/anuncio/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 function PaginaInicial({navigation}) {
   const route = useRoute();
 
   const data = route.params.dados
-
-  /*console.log(data)*/
-  const [novoAnuncio, setNovoAnuncio] = useState({
+  const usuario = useSelector(({usuario}) => usuario.usuario);
+  // console.log(usuario)
+  const [novoAnuncio] = useState({
     imoveisCep: data.imoveisCep,
     imoveisRua: data.imoveisRua,
     imoveisBairro: data.imoveisBairro,
@@ -34,35 +34,45 @@ function PaginaInicial({navigation}) {
     imoveisDiferencial: data.imoveisDiferencial,
     usuarioNome: data.usuarioNome,
     usuarioCPF: data.usuarioCPF,
-    usuarioTelefone: data.usuarioTelefone
-    
+    usuarioTelefone: data.usuarioTelefone,
+  
   });
 
-  const [anuncioCadastro] = useState({
-    imoveisDiaria: novoAnuncio.imoveisDiaria,
-    imoveisDescricao: novoAnuncio.imoveisDescricao,
-    imoveisCep: novoAnuncio.imoveisCep,
-    imoveisRua: novoAnuncio.imoveisRua,
-    imoveisBairro: novoAnuncio.imoveisBairro,
-    imoveisCidade: novoAnuncio.imoveisCidade,
-    imoveisNumero: novoAnuncio.imoveisNumero,
-    imoveisQuarto: novoAnuncio.imoveisQuarto,
-    imoveisBanheiro: novoAnuncio.imoveisBanheiro,
-    imoveisCozinha: novoAnuncio.imoveisCozinha,
-    imoveisDiferencial: novoAnuncio.imoveisDiferencial,
+ 
+
+  const [anuncioCadastro, setNovoAnuncio] = useState({
+    imoveisDiaria: data.imoveisDiaria,
+    imoveisDescricao: data.imoveisDescricao,
+    imoveisCep: data.imoveisCep,
+    imoveisRua: data.imoveisRua,
+    imoveisBairro: data.imoveisBairro,
+    imoveisCidade: data.imoveisCidade,
+    imoveisNumero: data.imoveisNumero,
+    imoveisQuarto: data.imoveisQuarto,
+    imoveisBanheiro: data.imoveisBanheiro,
+    imoveisCozinha: data.imoveisCozinha,
+    imoveisDiferencial: data.imoveisDiferencial,
     AnuncioFavorito: '',
-    mednota: ''
+    mednota: '',
+    usuarioId: usuario.id
   });
+
+
+  
   function handleChange(text, nomeInput) {
-    setNovoAnuncio({...novoAnuncio, [nomeInput]: text});
+    setNovoAnuncio({...anuncioCadastro, [nomeInput]:text});
+
+    console.log(anuncioCadastro)
   }
 
   const dispatch = useDispatch()
   const handleCadastroUpdate = () => {
-    dispatch(criarAnuncioRequest(anuncioCadastro, navigation));
-    console.log('36')
+    dispatch(criarAnuncioRequest(anuncioCadastro));
+    console.log(anuncioCadastro)
+
+   
   }
-  console.log(novoAnuncio)
+  // console.log(novoAnuncio)
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <View
@@ -107,11 +117,7 @@ function PaginaInicial({navigation}) {
           
         </View>
         <View style={style.prox}>
-          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}} onPress={()=>{
-            // navigation.push('Cadastro4', {dados:novoAnuncio})}
-            handleCadastroUpdate()
-            
-            }}>
+          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}} onPress={() => handleCadastroUpdate()} >
             <Icon.ChevronRight
               stroke="#000"
               width={50}
