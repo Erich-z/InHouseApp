@@ -75,7 +75,7 @@ const App = ({navigation}) => {
             <Image
               key={image.uri}
               source={image}
-              style={{width: 150, height: 150, margin: 20, aspectRatio: 1}}
+              style={{width: 130, height: 130, margin: 10, aspectRatio: 1}}
             />
           ))}
         </View>
