@@ -15,6 +15,7 @@ import * as Icon from 'react-native-feather';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
 import { updateUsuarioRequest } from '../store/modules/usuario/actions';
+import { logout } from '../store/modules/auth/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
 
@@ -31,6 +32,7 @@ function EditarPerfil({navigation}) {
     setDados({...dados,[nomeInput]: text});
   }
   console.log(dados)
+  
   
   console.log(usuarioTeste);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -212,6 +214,7 @@ function EditarPerfil({navigation}) {
               toggleModal2()
               usuario.usuario.usuarioEmail = dados.usuarioEmail
               dispatch(updateUsuarioRequest(usuario.usuario.id, usuario.usuario))
+              dispatch(logout());
              }
             }
             style={{
@@ -271,6 +274,7 @@ function EditarPerfil({navigation}) {
               toggleModal();
               usuario.usuario.usuarioSenha = dados.usuarioSenha;
               dispatch(updateUsuarioRequest(usuario.usuario.id, usuario.usuario))
+              dispatch(logout());
             }
             
             }
