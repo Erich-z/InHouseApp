@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   StyleSheet,
+  FlatList,
 } from 'react-native';
 import * as Icon from 'react-native-feather';
 import EditarPerfil from './EditarPerfil';
@@ -15,11 +16,49 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import { logout } from '../store/modules/auth/actions';
+import {logout} from '../store/modules/auth/actions';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const StackNav = createStackNavigator();
 
 const TabUsersScreen = () => {
+  const data = [
+    {
+      id: '1',
+      local: 'Presidente Epitácio',
+      endereco: 'Avenida bla bla',
+    },
+    {id: '2', local: 'São Paulo', endereco: 'Avenida Paulista'},
+    {id: '3', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+    {id: '4', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+    {id: '5', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+    {id: '6', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+  ];
+
+  const renderItem = ({item}) => (
+    
+    <TouchableOpacity style={styles.itemContainer}>
+      <View style={styles.itemContent}>
+        <View style={styles.itemTextContainer}>
+          <Text style={styles.localText}>{item.local}</Text>
+          <Text style={styles.enderecoText}>{item.endereco}</Text>
+        </View>
+        <View style={styles.iconContainer}>
+          <Icon.Edit2
+            stroke="#000"
+            width={24}
+            height={24}
+            onPress={() => navigation.push('EditarAnuncio')}
+          />
+          <TouchableHighlight onPress={handleOpenModal}>
+            <Icon.Trash2 stroke="#000" width={24} height={24} />
+          </TouchableHighlight>
+        </View>
+      </View>
+    </TouchableOpacity>
+    
+  );
+
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
   const handleOpenModal = () => {
@@ -57,7 +96,7 @@ const TabUsersScreen = () => {
     })
     .catch(error => console.log(error));*/
     dispatch(logout());
-  }
+  };
   return (
     <>
       <Modal
@@ -89,6 +128,7 @@ const TabUsersScreen = () => {
       {editHome && */}
       <View
         style={{
+          top:20,
           flex: 1,
           flexDirection: 'column',
           alignItems: 'center',
@@ -127,7 +167,7 @@ const TabUsersScreen = () => {
                   stroke="#000"
                   width={24}
                   height={24}
-                  onPress={() => handleLogout() }
+                  onPress={() => handleLogout()}
                 />
               </TouchableHighlight>
             </View>
@@ -160,54 +200,13 @@ const TabUsersScreen = () => {
             Anunciar Imovel
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            width: '70%',
-            height: 60,
-            marginTop: 15,
-            backgroundColor: 'rgb(0, 163, 255)',
-            borderRadius: 15,
-            justifyContent: 'center',
-            padding: 5,
-          }}>
-          <View
-            style={{
-              marginLeft: 15,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <View style={{width: '80%'}}>
-              <Text style={{fontSize: 15, color: '#000', fontWeight: 'bold'}}>
-                Presidente epitacio
-              </Text>
-              <Text style={{fontSize: 15, color: '#000', fontWeight: 'bold'}}>
-                Avenida jacinto akinoKhu
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '20%',
-                alignItems: 'center',
-              }}>
-              <Icon.Edit2
-                stroke="#000"
-                width={24}
-                height={24}
-                onPress={() => navigation.push('ChatList')}
-              />
-              <TouchableHighlight>
-                <Icon.Trash2
-                  stroke="#000"
-                  width={24}
-                  height={24}
-                  onPress={handleOpenModal}
-                />
-              </TouchableHighlight>
-            </View>
-          </View>
-        </TouchableOpacity>
+        <View style={styles.container}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        </View>
       </View>
       {/* } */}
     </>
@@ -228,11 +227,7 @@ const StackNavigatorUser = ({navigation}) => {
 };
 //STYLE MODAL
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+ 
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -261,6 +256,48 @@ const styles = StyleSheet.create({
     width: 60,
     height: 40,
     backgroundColor: 'rgb(0, 163, 255)',
+  },
+  container: {
+    width: '80%',
+    marginTop:10,
+    marginBottom:25,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  itemContainer: {
+    height: 60,
+    marginTop: 15,
+    backgroundColor: 'rgb(0, 163, 255)',
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+  },
+  itemContent: {
+    
+    marginLeft: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  itemTextContainer: {
+    width: '80%',
+  },
+  localText: {
+    fontSize: 15,
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  enderecoText: {
+    fontSize: 15,
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '20%',
+    alignItems: 'center',
   },
 });
 export default StackNavigatorUser;

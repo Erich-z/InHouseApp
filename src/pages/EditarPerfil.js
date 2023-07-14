@@ -211,7 +211,6 @@ function EditarPerfil({navigation}) {
 
           <TouchableHighlight
             onPress={()=>{
-              toggleModal2()
               usuario.usuario.usuarioEmail = dados.usuarioEmail
               dispatch(updateUsuarioRequest(usuario.usuario.id, usuario.usuario))
               dispatch(logout());
@@ -227,6 +226,24 @@ function EditarPerfil({navigation}) {
             }}>
             <Text style={{padding: 10, fontWeight: 'bold', color: '#000'}}>
               Salvar
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={()=>{
+              toggleModal2()
+             }
+            }
+            style={{
+              borderRadius: 10,
+              backgroundColor: '#00A3FF',
+              width: 100,
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 5,
+            }}>
+            <Text style={{padding: 10, fontWeight: 'bold', color: '#000',}}>
+              Cancelar
             </Text>
           </TouchableHighlight>
         </View>
@@ -288,6 +305,25 @@ function EditarPerfil({navigation}) {
             }}>
             <Text style={{padding: 10, fontWeight: 'bold', color: '#000'}}>
               Salvar
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={()=>{
+              toggleModal();
+            }
+            
+            }
+            style={{
+              borderRadius: 10,
+              backgroundColor: '#00A3FF',
+              width: 100,
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 5,
+            }}>
+            <Text style={{padding: 10, fontWeight: 'bold', color: '#000'}}>
+              Cancelar
             </Text>
           </TouchableHighlight>
         </View>
