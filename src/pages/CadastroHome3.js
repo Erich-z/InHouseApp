@@ -19,7 +19,7 @@ function PaginaInicial({navigation}) {
 
   const data = route.params.dados
   const usuario = useSelector(({usuario}) => usuario.usuario);
-  // console.log(usuario)
+  console.log(usuario)
   const [novoAnuncio] = useState({
     imoveisCep: data.imoveisCep,
     imoveisRua: data.imoveisRua,
@@ -35,6 +35,7 @@ function PaginaInicial({navigation}) {
     usuarioNome: data.usuarioNome,
     usuarioCPF: data.usuarioCPF,
     usuarioTelefone: data.usuarioTelefone,
+
   
   });
 
@@ -54,7 +55,8 @@ function PaginaInicial({navigation}) {
     imoveisDiferencial: data.imoveisDiferencial,
     AnuncioFavorito: '',
     mednota: '',
-    usuarioId: usuario.id
+    usuarioId: usuario.id,
+    images:[]
   });
 
 
@@ -63,12 +65,13 @@ function PaginaInicial({navigation}) {
     setNovoAnuncio({...anuncioCadastro, [nomeInput]:text});
 
     console.log(anuncioCadastro)
+    // console.log(anuncioCadastro)
   }
 
   const dispatch = useDispatch()
   const handleCadastroUpdate = () => {
     dispatch(criarAnuncioRequest(anuncioCadastro));
-    console.log(anuncioCadastro)
+    
 
    
   }
@@ -117,7 +120,7 @@ function PaginaInicial({navigation}) {
           
         </View>
         <View style={style.prox}>
-          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}} onPress={() => handleCadastroUpdate()} >
+          <TouchableOpacity style={{width:50,backgroundColor:'#00B0FF', borderRadius:100,}} onPress={() =>navigation.push('Cadastro4', {dados:anuncioCadastro})}>
             <Icon.ChevronRight
               stroke="#000"
               width={50}

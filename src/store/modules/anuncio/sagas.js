@@ -31,7 +31,7 @@ function* listarAnuncioUsuario(action) {
 
     const anuncio = response.data;
 
-    console.log(anuncio);
+    alert(anuncio);
 
     yield put({type: LISTAR_ANUNCIOUSUARIO_SUCCESS, payload: anuncio});
   } catch (error) {
@@ -47,10 +47,11 @@ function* listarAnuncio(action) {
 
     const anuncio = response.data;
 
-    console.log(anuncio);
+    // alert('anuncio');
 
     yield put({type: LISTAR_ANUNCIO_SUCCESS, payload: anuncio});
   } catch (error) {
+    // alert('anuncio');
     yield put({type: LISTAR_ANUNCIO_FAILURE, payload: error.message});
   }
 }
@@ -79,7 +80,7 @@ function* criarAnuncio(action) {
     yield put({type: CRIAR_ANUNCIO_SUCCESS, payload: anuncio});
   } catch (error) {
 
-    console.log('error')
+    alert('error')
     yield put({type: CRIAR_ANUNCIO_FAILURE, payload: error.message});
   }
 }

@@ -55,7 +55,7 @@ const anuncioReducer = (state = initialState, action) => {
     case CRIAR_ANUNCIO_REQUEST:
     case UPDATE_ANUNCIO_REQUEST:
     case DELETE_ANUNCIO_REQUEST:
-      console.log(action);
+      
       return {
         ...state,
         loading: true,

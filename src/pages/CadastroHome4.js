@@ -12,6 +12,7 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import { useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const App = ({navigation}) => {
 
@@ -19,28 +20,28 @@ const App = ({navigation}) => {
 
   const data = route.params.dados
   
-  console.log(data)
-  const [novoAnuncio, setNovoAnuncio] = useState({
+  const usuario = useSelector(({usuario}) => usuario.usuario);
+  const [anuncioCadastro, setNovoAnuncio] = useState({
+    imoveisDiaria: data.imoveisDiaria,
+    imoveisDescricao: data.imoveisDescricao,
     imoveisCep: data.imoveisCep,
     imoveisRua: data.imoveisRua,
     imoveisBairro: data.imoveisBairro,
-    imoveisDiaria: data.imoveisDiaria,
     imoveisCidade: data.imoveisCidade,
     imoveisNumero: data.imoveisNumero,
-    imoveisDescricao: data.imoveisDescricao,
     imoveisQuarto: data.imoveisQuarto,
     imoveisBanheiro: data.imoveisBanheiro,
     imoveisCozinha: data.imoveisCozinha,
     imoveisDiferencial: data.imoveisDiferencial,
-    usuarioNome: data.usuarioNome,
-    usuarioCPF: data.usuarioCPF,
-    usuarioTelefone: data.usuarioTelefone
-    
+    AnuncioFavorito: '',
+    mednota: '',
+    usuarioId: usuario.id,
+    images:[]
   });
 
-  function handleChange(text, nomeInput) {
-    setNovoAnuncio({...novoAnuncio, [nomeInput]: text});
-  }
+  // function handleChange(text, nomeInput) {
+   
+  // }
 
   const [images, setImages] = useState([]);
   const MAX_IMAGES = 4;
@@ -57,10 +58,19 @@ const App = ({navigation}) => {
       }
 
       setImages(selectedImages.map(image => ({uri: image.path})));
+      for (let i = 0; i < selectedImages.length; i++) {
+        const image = selectedImages[i];
+        const base64Image = `data:${image.mime};base64,${image.data}`;
+        anuncioCadastro.images.push(base64Image);
+      }
+      console.log(anuncioCadastro)
     } catch (error) {
       console.log(error);
     }
   };
+  const handlePressImages = () => {
+    
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -104,7 +114,7 @@ const App = ({navigation}) => {
             <Image
               key={image.uri}
               source={image}
-              style={{width: 150, height: 150, margin: 20, aspectRatio: 1}}
+              style={{width: 120, height: 120, margin: 20, aspectRatio: 1}}
             />
           ))}
         </View>
@@ -112,6 +122,7 @@ const App = ({navigation}) => {
 
         <View style={style.prox}>
           <TouchableOpacity
+            onPress={handlePressImages}
             style={{width: 50, backgroundColor: '#00B0FF', borderRadius: 100}}>
             <Icon.ChevronRight stroke="#000" width={50} height={50} />
           </TouchableOpacity>

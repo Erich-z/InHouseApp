@@ -1,5 +1,5 @@
 import Carousel from 'react-native-snap-carousel';
-import { useState } from 'react';
+import {useState} from 'react';
 import {
   Text,
   View,
@@ -13,18 +13,19 @@ import {
   Touchable,
 } from 'react-native';
 import {FlatList} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
+// import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 // const slideWidth = 280;
 const horizontalMargin = 30;
 const sliderWidth = Dimensions.get('window').width;
 const itemWidth = sliderWidth - horizontalMargin * 2;
+import { useDispatch, useSelector } from 'react-redux';
 import {Pagination} from 'react-native-snap-carousel';
 import * as Icon from 'react-native-feather';
 
 import {useEffect} from 'react';
+import { listarAnuncioRequest } from '../store/modules/anuncio/actions';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
   container: {
@@ -49,14 +50,38 @@ const styles = StyleSheet.create({
   },
 });
 
-const ImageF = (item) => {
-  // console.log(item.item)
-  return <Image source={{uri: item.item}} style={styles.image} />;
-};
 
 const TabHomeScreen = ({navigation}) => {
   // const [activeTab, setActiveTab] = useState<any>([])
+  const dispatch = useDispatch();
+  const anuncio = useSelector(({anuncio}) => anuncio);
+  const [anuncioListState, setAnuncioListState] = useState([]);
 
+
+
+  useEffect(() => {
+    dispatch(listarAnuncioRequest())
+  }, []);
+
+  useEffect(() => {
+    setAnuncioListState(anuncio.anuncios);
+    
+  }, [anuncio.anuncios]);
+
+  console.log(anuncioListState)
+  const ImageF = (item) => {
+    // console.log(item.item)
+    // const navigation = useNavigation();
+    return(
+      <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('HouseView')}>
+        <Image source={{uri: item.item}} style={styles.image} />
+      </TouchableOpacity>
+      )
+    
+            
+            
+  };
+  
   const data = [
     {
       title: 'Presidente Prudente',
@@ -132,81 +157,88 @@ const TabHomeScreen = ({navigation}) => {
 
     // console.log(array)
     return (
-      <TouchableOpacity  onPress={() => navigation.navigate('HouseView')}>
-         <View style={styles.container} key={index}>
-        <View style={styles.heartIconContainer}>
-          <TouchableOpacity
-            style={styles.heartIconContainer}
-            onPress={() => handlePress(index)}>
-            <Icon.Heart width={30} height={30} fill={color} color={color} />
-          </TouchableOpacity>
-        </View>
-        <Carousel
-          layout={'default'}
-          loop={false}
-          // ref={ref => console.log(ref)}
-          onTouchStart={e => {
-            // console.log(index);
-            setPosition(index);
-          }}
-          data={item.imgUrl}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-          itemHeight={100}
-          renderItem={ImageF}
-          inactiveSlideOpacity={0}
-          inactiveSlideScale={1}
-          onSnapToItem={i => {
-            const newArr = [...arr];
-            newArr[position] = i;
-            setArray(newArr);
-          }}
-        />
-        <View
-          style={{
-            position: 'absolute',
-            right: 0,
-            bottom: 70,
-            left: 0,
-
-            // borderTopWidth: 1,
-            // borderColor: '#ddd',set
-            // backgroundColor: '#fff'
-          }}>
-          <Pagination
-            dotsLength={item.imgUrl.length}
-            // containerStyle={{ backgroundColor: 'green' }}
-            dotStyle={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              marginHorizontal: 8,
-              backgroundColor: '#fff',
-            }}
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-            activeDotIndex={array[position]}
-          />
-        </View>
-
-        <View style={{marginHorizontal: horizontalMargin, marginBottom: 15}}>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-            <Text style={styles.title}>{item.title}</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Icon.Star width={20} height={20} fill={'#000'} color={'#000'} />
-              <Text>{item.rate}</Text>
-            </View>
+      <View style={styles.container} key={index}>
+      
+          <View style={styles.heartIconContainer}>
+            <TouchableOpacity
+              style={styles.heartIconContainer}
+              onPress={() => handlePress(index)}>
+              <Icon.Heart width={30} height={30} fill={color} color={color} />
+            </TouchableOpacity>
           </View>
-          <Text>{item.body}</Text>
-          <Text>
-            <Text>R$</Text>
-            {item.price}
-          </Text>
-          {/* <Text>{index}</Text> */}
-          {/* <Text>{i}</Text> */}
-        </View>
+          {/*<Carousel
+            layout={'default'}
+            loop={false}
+
+            // ref={ref => console.log(ref)}
+            onTouchStart={e => {
+              // console.log(index);
+              setPosition(index);
+            }}
+            data={item.imgUrl}
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            itemHeight={100}
+            renderItem={ImageF}
+            inactiveSlideOpacity={0}
+            inactiveSlideScale={1}
+            onSnapToItem={i => {
+              const newArr = [...arr];
+              newArr[position] = i;
+              setArray(newArr);
+            }}
+          />*/}
+          <View
+            style={{
+              position: 'absolute',
+              right: 0,
+              bottom: 70,
+              left: 0,
+
+              // borderTopWidth: 1,
+              // borderColor: '#ddd',set
+              // backgroundColor: '#fff'
+            }}>
+            {/* <Pagination
+              dotsLength={item.imgUrl.length}
+              // containerStyle={{ backgroundColor: 'green' }}
+              dotStyle={{
+                width: 10,
+                height: 10,
+                borderRadius: 5,
+                marginHorizontal: 8,
+                backgroundColor: '#fff',
+              }}
+              inactiveDotOpacity={0.4}
+              inactiveDotScale={0.6}
+              activeDotIndex={array[position]}
+            /> */}
+          </View>
+
+          <View style={{marginHorizontal: horizontalMargin, marginBottom: 15}}>
+            <View
+              style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+              <Text style={styles.title}>{item.imoveisCidade}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Icon.Star
+                  width={20}
+                  height={20}
+                  fill={'#000'}
+                  color={'#000'}
+                />
+                <Text>{item.mednota}</Text>
+              </View>
+            </View>
+            <Text>{item.imoveisDescricao}</Text>
+            <Text>
+              <Text>R$</Text>
+              {item.imoveisDiaria}
+            </Text>
+            {/* <Text>{index}</Text> */}
+            {/* <Text>{i}</Text> */}
+          </View>
+     
       </View>
-      </TouchableOpacity>
     );
   };
 
@@ -226,8 +258,7 @@ const TabHomeScreen = ({navigation}) => {
             padding: 8,
             borderRadius: 10,
           }}
-          onPress={() => navigation.push('Cadastro')}
-          >
+          onPress={() => navigation.push('Cadastro')}>
           <Text style={{textAlign: 'center', color: '#fff', fontWeight: '700'}}>
             Anúncie
           </Text>
@@ -258,7 +289,7 @@ const TabHomeScreen = ({navigation}) => {
 
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         <FlatList
-          data={data}
+          data={anuncioListState}
           renderItem={({item, index}) => {
             return <Cards item={item} index={index} />;
           }}
