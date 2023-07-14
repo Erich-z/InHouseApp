@@ -195,7 +195,7 @@ const TabUsersScreen = () => {
                 stroke="#000"
                 width={24}
                 height={24}
-                onPress={() => navigation.push('ChatList')}
+                onPress={() => navigation.push('EditarAnuncio')}
               />
               <TouchableHighlight>
                 <Icon.Trash2
