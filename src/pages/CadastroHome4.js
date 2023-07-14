@@ -11,8 +11,38 @@ import {
 import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
+import { useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const App = ({navigation}) => {
+
+  const route = useRoute();
+
+  const data = route.params.dados
+  
+  const usuario = useSelector(({usuario}) => usuario.usuario);
+  const [anuncioCadastro, setNovoAnuncio] = useState({
+    imoveisDiaria: data.imoveisDiaria,
+    imoveisDescricao: data.imoveisDescricao,
+    imoveisCep: data.imoveisCep,
+    imoveisRua: data.imoveisRua,
+    imoveisBairro: data.imoveisBairro,
+    imoveisCidade: data.imoveisCidade,
+    imoveisNumero: data.imoveisNumero,
+    imoveisQuarto: data.imoveisQuarto,
+    imoveisBanheiro: data.imoveisBanheiro,
+    imoveisCozinha: data.imoveisCozinha,
+    imoveisDiferencial: data.imoveisDiferencial,
+    AnuncioFavorito: '',
+    mednota: '',
+    usuarioId: usuario.id,
+    images:[]
+  });
+
+  // function handleChange(text, nomeInput) {
+   
+  // }
+
   const [images, setImages] = useState([]);
   const MAX_IMAGES = 4;
   const handleSelectImages = async () => {
@@ -28,10 +58,19 @@ const App = ({navigation}) => {
       }
 
       setImages(selectedImages.map(image => ({uri: image.path})));
+      for (let i = 0; i < selectedImages.length; i++) {
+        const image = selectedImages[i];
+        const base64Image = `data:${image.mime};base64,${image.data}`;
+        anuncioCadastro.images.push(base64Image);
+      }
+      console.log(anuncioCadastro)
     } catch (error) {
       console.log(error);
     }
   };
+  const handlePressImages = () => {
+    
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -75,7 +114,7 @@ const App = ({navigation}) => {
             <Image
               key={image.uri}
               source={image}
-              style={{width: 130, height: 130, margin: 10, aspectRatio: 1}}
+              style={{width: 120, height: 120, margin: 20, aspectRatio: 1}}
             />
           ))}
         </View>
@@ -83,6 +122,7 @@ const App = ({navigation}) => {
 
         <View style={style.prox}>
           <TouchableOpacity
+            onPress={handlePressImages}
             style={{width: 50, backgroundColor: '#00B0FF', borderRadius: 100}}>
             <Icon.ChevronRight stroke="#000" width={50} height={50} />
           </TouchableOpacity>
