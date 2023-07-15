@@ -18,30 +18,33 @@ import {CommonActions} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../store/modules/auth/actions';
 import { ScrollView } from 'react-native-gesture-handler';
+import {listarAnuncioUsuarioRequest, deleteAnuncioRequest} from '../store/modules/anuncio/actions';
+
 
 const StackNav = createStackNavigator();
 
 const TabUsersScreen = () => {
-  const data = [
-    {
-      id: '1',
-      local: 'Presidente Epitácio',
-      endereco: 'Avenida bla bla',
-    },
-    {id: '2', local: 'São Paulo', endereco: 'Avenida Paulista'},
-    {id: '3', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
-    {id: '4', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
-    {id: '5', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
-    {id: '6', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
-  ];
+  // const data = [
+  //   {
+  //     id: '1',
+  //     local: 'Presidente Epitácio',
+  //     endereco: 'Avenida bla bla',
+  //   },
+  //   {id: '2', local: 'São Paulo', endereco: 'Avenida Paulista'},
+  //   {id: '3', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+  //   {id: '4', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+  //   {id: '5', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+  //   {id: '6', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
+  // ];
 
-  const renderItem = ({item}) => (
-    
+  const ItemList = ({anuncio}) => {
+    const navigation = useNavigation();
+    return(
     <TouchableOpacity style={styles.itemContainer}>
       <View style={styles.itemContent}>
         <View style={styles.itemTextContainer}>
-          <Text style={styles.localText}>{item.local}</Text>
-          <Text style={styles.enderecoText}>{item.endereco}</Text>
+          <Text style={styles.localText}>{anuncio.imoveisCidade}</Text>
+          <Text style={styles.enderecoText}>{anuncio.imoveisRua}</Text>
         </View>
         <View style={styles.iconContainer}>
           <Icon.Edit2
@@ -50,14 +53,14 @@ const TabUsersScreen = () => {
             height={24}
             onPress={() => navigation.push('EditarAnuncio')}
           />
-          <TouchableHighlight onPress={handleOpenModal}>
+          <TouchableHighlight onPress={()=>{handleOpenModal(); setanuncioDelete(anuncio.id)}}>
             <Icon.Trash2 stroke="#000" width={24} height={24} />
           </TouchableHighlight>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableOpacity>)
     
-  );
+  };
 
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
@@ -69,34 +72,37 @@ const TabUsersScreen = () => {
     setModalVisible(false);
   };
   +useEffect(() => {
-    setModalVisible(false); // Redefine o estado quando a tela for focada novamente
+    setModalVisible(false);
   }, [isFocused]);
 
-  /* const [editHome, setEditHome] = useState(true);
-  const [editarPerfilScreen, setEditarPerfilScreen] = useState(false);
-
-  const handleClickEditPerfil = () => {
-    setEditHome(false);
-    setEditarPerfilScreen(true);
-  } */
+const [anuncioDelete, setanuncioDelete] = useState(0)
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const anuncio = useSelector(({anuncio}) =>anuncio)
   const usuario = useSelector(({usuario}) => usuario);
-  console.log(usuario);
+  
   const [usuarioTeste, setusuarioTeste] = useState({
     usuarioNome: usuario?.usuario.usuarioNome,
   });
-  console.log(usuarioTeste);
+  
   const [image, setImage] = useState(require('../img/default.jpg'));
-  const handleLogout = () => {
-    /*ConsomeApi.login(dados)
-    .then((token) => {
-      //console.log(token);
-      storeData('@login_token',token)
-    })
-    .catch(error => console.log(error));*/
+
+  const [anuncioListState, setAnuncioListState] = useState([]);
+
+  const handleLogout = () => {  
     dispatch(logout());
   };
+
+  useEffect(() => {
+      dispatch(listarAnuncioUsuarioRequest())
+  }, [])
+
+  useEffect(() => {
+    setAnuncioListState(anuncio.anuncios);
+    handleCloseModal();
+  }, [anuncio.anuncios]);
+  
   return (
     <>
       <Modal
@@ -110,7 +116,10 @@ const TabUsersScreen = () => {
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 title="Sim"
-                onPress={() => navigation.push('')}
+                onPress={()=>{
+                  dispatch(deleteAnuncioRequest(anuncioDelete))
+                  
+                }}
                 style={styles.Modalbutton}>
                 <Text style={{textAlign: 'center', color: '#000'}}>Sim</Text>
               </TouchableOpacity>
@@ -201,14 +210,14 @@ const TabUsersScreen = () => {
           </Text>
         </TouchableOpacity>
         <View style={styles.container}>
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
+        <FlatList 
+         data = {anuncioListState}
+         renderItem={({ item }) => <ItemList anuncio={item} />}
+         keyExtractor={item => item.id}
+       />
         </View>
       </View>
-      {/* } */}
+      
     </>
   );
 };

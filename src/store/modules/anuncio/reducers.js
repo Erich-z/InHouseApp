@@ -88,12 +88,12 @@ const anuncioReducer = (state = initialState, action) => {
       };
     case DELETE_ANUNCIO_SUCCESS:
       var index = state.anuncios.findIndex(
-        anuncio => anuncio.id === action.payload,
+        anuncio => anuncio.id === action.payload.id,
       );
       return {
         ...state,
         loading: false,
-        anuncio: [
+        anuncios: [
           ...state.anuncios.slice(0, index),
 
           ...state.anuncios.slice(index + 1),

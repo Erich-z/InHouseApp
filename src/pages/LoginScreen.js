@@ -23,7 +23,7 @@ import * as Icon from 'react-native-feather';
 function LoginIn({navigation}) {
   const dispatch = useDispatch();
   //manipular os dados do formulario dos inputs
-  const [dados, setDados] = useState({Email: 'vinicius@gmail.com', senha: '123456'});
+  const [dados, setDados] = useState({Email: 'pao1@gmail.com', senha: '123456789'});
   const handleChange = (text, nomeInput) => {
     setDados({...dados,[nomeInput]: text});
   }

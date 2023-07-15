@@ -7,7 +7,7 @@ export default styles = {
   texto: {
     fontSize: 20,
     color: '#000',
-    marginTop: 10,
+    
     marginLeft: 10
   },
   textoEdit: {
@@ -20,7 +20,7 @@ export default styles = {
   input: {
     backgroundColor: '#ccc',
     borderRadius: 15,
-    marginTop: 5,
+    
     height: 40,
     width: '90%',
     paddingHorizontal: 10,

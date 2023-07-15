@@ -25,13 +25,14 @@ function* listarAnuncioUsuario(action) {
   try {
     const state = yield select();
     const usuarioId = state.usuario.usuario.id;
+    console.log(usuarioId);
     const response = yield call(() =>
-      api.get(`/anuncios/?usuarioId=${usuarioId}`),
+      api.get(`/anuncios/usuario/${usuarioId}`),
     );
 
     const anuncio = response.data;
 
-    alert(anuncio);
+    //alert(anuncio); 
 
     yield put({type: LISTAR_ANUNCIOUSUARIO_SUCCESS, payload: anuncio});
   } catch (error) {

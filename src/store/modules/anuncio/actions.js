@@ -90,8 +90,9 @@ export const deleteAnuncioRequest = id => ({
   payload: {id},
 });
 
-export const deleteAnuncioSuccess = () => ({
+export const deleteAnuncioSuccess = (id) => ({
   type: DELETE_ANUNCIO_SUCCESS,
+  payload: id
 });
 
 export const deleteAnuncioFailure = error => ({
