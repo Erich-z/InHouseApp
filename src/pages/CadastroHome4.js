@@ -14,6 +14,7 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import { useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { UPLOAD_IMAGE_REQUEST } from '../store/modules/Imagem/actions';
+import { criarAnuncioRequest } from '../store/modules/anuncio/actions';
 const App = ({navigation}) => {
 
   const route = useRoute();
@@ -36,7 +37,7 @@ const App = ({navigation}) => {
     AnuncioFavorito: '',
     mednota: '',
     usuarioId: usuario.id,
-    images:[]
+    imoveis_img:[]
   });
 
   // function handleChange(text, nomeInput) {
@@ -73,11 +74,12 @@ const App = ({navigation}) => {
         //   setImages({uri:image.path});
         // });
         const imagesMap = selectedImages.map(image => ({uri:image.path}))
-        const imagesMap64 = selectedImages.map(image => ( `data:${image.mime};base64,${image.data}`))
+        const imagesMap64 = selectedImages.map(image => ( `${image.data}`))
         setImages(imagesMap)
-        setImages64(imagesMap64);
-
-    
+        setImages64(imagesMap64)
+        
+        
+        console.log(imagesMap64)
       // setImages(selectedImages.map(image => ({uri: image.path})));
       //   setImages(selectedImages.map(image => ({uri: image.path})));
       // for (let i = 0; i < selectedImages.length; i++) {
@@ -94,10 +96,11 @@ const App = ({navigation}) => {
   };
   const handlePressImages = () => {
     // setNovoAnuncio([...anuncioCadastro, base64Image])
-    setNovoAnuncio([...anuncioCadastro,  { image: images64 }])
 
+    setNovoAnuncio({...anuncioCadastro,  imoveis_img:images64})
     console.log(anuncioCadastro)
-    dispatch({ type: UPLOAD_IMAGE_REQUEST, payload: images64});
+    // console.log(novo)
+    dispatch(criarAnuncioRequest(anuncioCadastro));
 }
 
   return (
