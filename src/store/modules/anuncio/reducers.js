@@ -79,6 +79,7 @@ const anuncioReducer = (state = initialState, action) => {
       var index = state.anuncios.findIndex(
         anuncio => anuncio.id === action.payload.id,
       );
+      console.log(action.payload);
       state.anuncios[index] = action.payload;
       return {
         ...state,
