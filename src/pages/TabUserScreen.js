@@ -36,7 +36,10 @@ const TabUsersScreen = () => {
   //   {id: '5', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
   //   {id: '6', local: 'Rio de Janeiro', endereco: 'Avenida Copacabana'},
   // ];
-
+  function selectImovel (item) {
+    console.log(item)
+    navigation.push('EditarAnuncio', {item:item})
+  }
   const ItemList = ({anuncio}) => {
     const navigation = useNavigation();
     return(
@@ -51,7 +54,7 @@ const TabUsersScreen = () => {
             stroke="#000"
             width={24}
             height={24}
-            onPress={() => navigation.push('EditarAnuncio')}
+            onPress={() => selectImovel(anuncio)}
           />
           <TouchableHighlight onPress={()=>{handleOpenModal(); setanuncioDelete(anuncio.id)}}>
             <Icon.Trash2 stroke="#000" width={24} height={24} />

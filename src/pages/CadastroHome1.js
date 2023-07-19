@@ -15,7 +15,6 @@ import {useDispatch, useSelector} from 'react-redux';
 
 function Cadastro1({navigation}) {
   const usuario = useSelector(({usuario}) => usuario.usuario);
-  console.log(usuario)
   const [usuarioTeste] = useState({
     usuarioNome: usuario?.usuarioNome,
     usuarioCPF: usuario?.usuarioCPF,

@@ -92,12 +92,14 @@ function* updateAnuncio(action) {
   try {
     const response = yield call(() =>
       api.put(`/anuncios/${action.payload.id}`, action.payload.anuncio),
+      console.log('MATHEUS')
     );
 
     const anuncio = response.data;
 
     yield put({type: UPDATE_ANUNCIO_SUCCESS, payload: anuncio});
   } catch (error) {
+    console.log(error)
     yield put({type: UPDATE_ANUNCIO_FAILURE, payload: error.message});
   }
 }
