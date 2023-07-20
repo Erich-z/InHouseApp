@@ -59,7 +59,11 @@ const TabHomeScreen = ({navigation}) => {
   const anuncio = useSelector(({anuncio}) => anuncio);
   const [anuncioListState, setAnuncioListState] = useState([]);
 
+  function selectImovel2 (item, index) {
+    console.log(anuncio.anuncios[index])
 
+    navigation.push('HouseView', {item:anuncio.anuncios[index]})
+  }
 
   useEffect(() => {
     dispatch(listarAnuncioRequest())
@@ -71,12 +75,12 @@ const TabHomeScreen = ({navigation}) => {
   }, [anuncio.anuncios]);
 
   // console.log(anuncio)
-  function ImageF(item) {
-    // console.log(item.item)
+  function ImageF(item, index) {
+    console.log(index)
     // const navigation = useNavigation();
-    // console.log(item);
+
     return (
-      <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('HouseView')}>
+      <TouchableOpacity activeOpacity={1} onPress={() => selectImovel2(item, index)}>
         <Image source={{ uri: `${webUrl}/${item.item.imoveis_img}`
  }} style={styles.image} />
       </TouchableOpacity>
@@ -86,48 +90,7 @@ const TabHomeScreen = ({navigation}) => {
 
   }
   
-  const data = [
-    {
-      title: 'Presidente Prudente',
-      body: 'Avenida vai pa puta que pariu.',
-      price: 250.25,
-      imgUrl: [
-        'https://picsum.photos/id/11/200/300',
-        'https://picsum.photos/id/10/200/300',
-        'https://picsum.photos/id/10/200/300',
-      ],
-      rate: 4.3,
-      fav: true,
-      id: '1',
-    },
-    {
-      title: 'Presidente Prudente',
-      body: 'Avenida vai pa puta que pariu.',
-      imgUrl: [
-        'https://picsum.photos/id/11/200/300',
-        'https://picsum.photos/id/11/200/300',
-        'https://picsum.photos/id/10/200/300',
-        'https://picsum.photos/id/10/200/300',
-      ],
-      rate: 3.5,
-      price: 250.25,
-      fav: false,
-      id: '2',
-    },
-    {
-      title: 'Presidente Prudente',
-      body: 'Avenida vai pa puta que pariu.',
-      imgUrl: [
-        'https://picsum.photos/id/11/200/300',
-        'https://picsum.photos/id/10/200/300',
-        'https://picsum.photos/id/10/200/300',
-      ],
-      price: 250.25,
-      rate: 5,
-      fav: true,
-      id: '3',
-    },
-  ];
+  
   // const array:any = []
   // updateActiveTab(array)
 
@@ -185,7 +148,7 @@ const TabHomeScreen = ({navigation}) => {
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
             itemHeight={100}
-            renderItem={ImageF}
+            renderItem={(item) => ImageF(item, index)}
             inactiveSlideOpacity={0}
             inactiveSlideScale={1}
             onSnapToItem={i => {

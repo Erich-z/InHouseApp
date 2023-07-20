@@ -16,6 +16,7 @@ import Comment from './Comments';
 import Modal from 'react-native-modal';
 import {PageScrollView} from 'pagescrollview';
 import { useRoute } from '@react-navigation/native';
+import { webUrl } from '../../service/web';
 const {width} = Dimensions.get('window');
 
 const IMAGES = {
@@ -75,19 +76,23 @@ function App() {
                 onSnapToItem={item => onSelect(item)}
                 ref={carouselRef}
                 layout="default"
-                data={images}
+                data={imovelState.anuncios_imagens}
                 sliderWidth={width}
                 itemWidth={width}
                 loop={true}
                 autoplay={true}
                 autoplayInterval={3000}
-                renderItem={({item, index}) => (
+                renderItem={({item, index}) => {
+                  console.log(`${webUrl}/${item.imoveis_img}`)
+                  return (
                   <Image
                     key={index}
                     style={{width: '100%', height: '100%'}}
-                    source={item.image}
+                    source={{
+                      uri: `${webUrl}/${item.imoveis_img}`,
+                    }}
                   />
-                )}
+                )}}
               />
               <View
                 style={{
