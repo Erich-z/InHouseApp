@@ -40,10 +40,15 @@ const TabUsersScreen = () => {
     console.log(item)
     navigation.push('EditarAnuncio', {item:item})
   }
+  function selectImovel2 (item) {
+    console.log(item)
+    navigation.push('HouseView', {item:item})
+  }
+
   const ItemList = ({anuncio}) => {
     const navigation = useNavigation();
     return(
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={()=> selectImovel2(anuncio)}>
       <View style={styles.itemContent}>
         <View style={styles.itemTextContainer}>
           <Text style={styles.localText}>{anuncio.imoveisCidade}</Text>

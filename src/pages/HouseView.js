@@ -15,6 +15,7 @@ import {Button, Pressable, NativeBaseProvider, Input} from 'native-base';
 import Comment from './Comments';
 import Modal from 'react-native-modal';
 import {PageScrollView} from 'pagescrollview';
+import { useRoute } from '@react-navigation/native';
 const {width} = Dimensions.get('window');
 
 const IMAGES = {
@@ -25,6 +26,12 @@ const IMAGES = {
 };
 
 function App() {
+  const route = useRoute();
+  const [imovelState, setimovelState] = useState(route.params.item);
+  console.log(imovelState)
+
+
+
   const [images, setImages] = useState([
     {id: '1', image: IMAGES.image1},
     {id: '2', image: IMAGES.image2},
@@ -145,13 +152,13 @@ function App() {
               paddingLeft: 7,
             }}>
             <Text style={{color: '#000', fontSize: 15}}>
-              Presidente Prudente
+            {imovelState.imoveisCidade}
             </Text>
             <Text style={{color: '#000', fontSize: 15}}>
-              Casa para passar o final de semana
+            {imovelState.imoveisDiferencial}
             </Text>
             <Text style={{color: '#000', fontSize: 15}}>
-              Av. Manoel Goulart - 700
+            {imovelState.imoveisRua}
             </Text>
             <View
               style={{
@@ -172,7 +179,7 @@ function App() {
                 marginLeft: 15,
                 fontSize: 15,
               }}>
-              200 / Diaria
+              {imovelState.imoveisDiaria}
             </Text>
           </View>
 
@@ -184,12 +191,9 @@ function App() {
               marginTop: 325,
               paddingLeft: 7 /*borderWidth: 2, borderColor: '#8a2be2'*/,
             }}>
-            <Text style={{color: '#000', fontSize: 15}}>Descrição:</Text>
+            <Text style={{color: '#000', fontSize: 15, fontWeight: 'bold'}}>Descrição:</Text>
             <Text style={{color: '#000', fontSize: 15, paddingTop: 5}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            {imovelState.imoveisDescricao}
             </Text>
           </View>
 

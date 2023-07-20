@@ -17,8 +17,8 @@ import { updateAnuncioRequest } from '../store/modules/anuncio/actions';
 
 
 function EditarAnuncio({ navigation }) {
-  const route = useRoute();
   const dispatch = useDispatch();
+  const route = useRoute();
   const [imovelState, setimovelState] = useState(route.params.item);
   console.log(imovelState)
   function handleChange(text, nomeInput) {
