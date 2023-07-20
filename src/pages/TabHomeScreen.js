@@ -74,7 +74,7 @@ const TabHomeScreen = ({navigation}) => {
   function ImageF(item) {
     // console.log(item.item)
     // const navigation = useNavigation();
-    console.log(item);
+    // console.log(item);
     return (
       <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('HouseView')}>
         <Image source={{ uri: `${webUrl}/${item.item.imoveis_img}`

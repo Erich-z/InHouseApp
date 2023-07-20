@@ -50,11 +50,14 @@ const App = ({navigation}) => {
   const MAX_IMAGES = 4;
   const handleSelectImages = async () => {
 
+    
 
     try {
 
       // setImages([])
       // setImages64([])
+   
+
       const selectedImages = await ImageCropPicker.openPicker({
         multiple: true,
         mediaType: 'photo',
@@ -75,17 +78,12 @@ const App = ({navigation}) => {
         // });
         const imagesMap = selectedImages.map(image => ({uri:image.path}))
         const imagesMap64 = selectedImages.map(image => ( `${image.data}`))
+        setImages64({imagesMap64})
         setImages(imagesMap)
-        setImages64(imagesMap64)
         
         
-        console.log(imagesMap64)
-      // setImages(selectedImages.map(image => ({uri: image.path})));
-      //   setImages(selectedImages.map(image => ({uri: image.path})));
-      // for (let i = 0; i < selectedImages.length; i++) {
-      //   const image = selectedImages[i];
-
-      //   const base64Image = `data:${image.mime};base64,${image.data}`;
+        setNovoAnuncio({...anuncioCadastro,  imoveis_img:imagesMap64})
+      
 
       //   setImages64([...images64, { image: images64 }]);
         
@@ -94,12 +92,13 @@ const App = ({navigation}) => {
       console.log(error);
     }
   };
-  const handlePressImages = () => {
+  const handlePressImages =  () => {
     // setNovoAnuncio([...anuncioCadastro, base64Image])
 
-    setNovoAnuncio({...anuncioCadastro,  imoveis_img:images64})
+    
+    
     console.log(anuncioCadastro)
-    // console.log(novo)
+
     dispatch(criarAnuncioRequest(anuncioCadastro));
 }
 
