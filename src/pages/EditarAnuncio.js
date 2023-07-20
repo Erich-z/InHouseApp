@@ -20,12 +20,12 @@ function EditarAnuncio({ navigation }) {
   const dispatch = useDispatch();
   const route = useRoute();
   const [imovelState, setimovelState] = useState(route.params.item);
-  console.log(imovelState)
   function handleChange(text, nomeInput) {
     setimovelState({...imovelState, [nomeInput]: text});
-
+    console.log(imovelState)
+    
   }
-
+  
   function handleEdit(){
     dispatch(updateAnuncioRequest(imovelState.id, imovelState))
     navigation.navigate('MainTab')
@@ -55,7 +55,7 @@ function EditarAnuncio({ navigation }) {
         <Text style={style.texto}>Preço pela diária</Text>
         <TextInput 
               style={style.input}
-              
+              onChangeText={text => handleChange(text, 'imoveisDiaria')}
               >{imovelState.imoveisDiaria}</TextInput>
 
         <Text style={style.texto}>Informe seu CEP</Text>

@@ -100,6 +100,7 @@ const App = ({navigation}) => {
     console.log(anuncioCadastro)
 
     dispatch(criarAnuncioRequest(anuncioCadastro));
+    navigation.push('TabHomeScreen');
 }
 
   return (
