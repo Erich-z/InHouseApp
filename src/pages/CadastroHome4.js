@@ -12,12 +12,13 @@ import style from '../css/style';
 import * as Icon from 'react-native-feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import { useRoute } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { UPLOAD_IMAGE_REQUEST } from '../store/modules/Imagem/actions';
+import { criarAnuncioRequest } from '../store/modules/anuncio/actions';
 const App = ({navigation}) => {
 
   const route = useRoute();
-
+  const dispatch = useDispatch()
   const data = route.params.dados
   
   const usuario = useSelector(({usuario}) => usuario.usuario);
@@ -36,7 +37,7 @@ const App = ({navigation}) => {
     AnuncioFavorito: '',
     mednota: '',
     usuarioId: usuario.id,
-    images:[]
+    imoveis_img:[]
   });
 
   // function handleChange(text, nomeInput) {
@@ -44,33 +45,62 @@ const App = ({navigation}) => {
   // }
 
   const [images, setImages] = useState([]);
+
+  const [images64, setImages64] = useState([])
   const MAX_IMAGES = 4;
   const handleSelectImages = async () => {
+
+    
+
     try {
+
+      // setImages([])
+      // setImages64([])
+   
+
       const selectedImages = await ImageCropPicker.openPicker({
         multiple: true,
         mediaType: 'photo',
-      });
+        includeBase64: true,
+        
+      }); 
 
+  
       if (selectedImages.length > MAX_IMAGES) {
         alert(`Você só pode selecionar ${MAX_IMAGES} imagens`);
         return;
       }
+        // console.log(selectedImages);
 
-      setImages(selectedImages.map(image => ({uri: image.path})));
-      for (let i = 0; i < selectedImages.length; i++) {
-        const image = selectedImages[i];
-        const base64Image = `data:${image.mime};base64,${image.data}`;
-        anuncioCadastro.images.push(base64Image);
-      }
-      console.log(anuncioCadastro)
+        // selectedImages.forEach(image => {
+          
+        //   setImages({uri:image.path});
+        // });
+        const imagesMap = selectedImages.map(image => ({uri:image.path}))
+        const imagesMap64 = selectedImages.map(image => ( `${image.data}`))
+        setImages64({imagesMap64})
+        setImages(imagesMap)
+        
+        
+        setNovoAnuncio({...anuncioCadastro,  imoveis_img:imagesMap64})
+      
+
+      //   setImages64([...images64, { image: images64 }]);
+        
+      // }
     } catch (error) {
       console.log(error);
     }
   };
-  const handlePressImages = () => {
+  const handlePressImages =  () => {
+    // setNovoAnuncio([...anuncioCadastro, base64Image])
+
     
-  }
+    
+    console.log(anuncioCadastro)
+
+    dispatch(criarAnuncioRequest(anuncioCadastro));
+}
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>

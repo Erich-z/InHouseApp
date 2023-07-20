@@ -18,6 +18,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 // const slideWidth = 280;
 const horizontalMargin = 30;
+
 const sliderWidth = Dimensions.get('window').width;
 const itemWidth = sliderWidth - horizontalMargin * 2;
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +27,7 @@ import * as Icon from 'react-native-feather';
 
 import {useEffect} from 'react';
 import { listarAnuncioRequest } from '../store/modules/anuncio/actions';
+import { webUrl } from '../../service/web';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
   container: {
@@ -68,19 +70,21 @@ const TabHomeScreen = ({navigation}) => {
     
   }, [anuncio.anuncios]);
 
-  console.log(anuncioListState)
-  const ImageF = (item) => {
+  // console.log(anuncio)
+  function ImageF(item) {
     // console.log(item.item)
     // const navigation = useNavigation();
-    return(
+    // console.log(item);
+    return (
       <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('HouseView')}>
-        <Image source={{uri: item.item}} style={styles.image} />
+        <Image source={{ uri: `${webUrl}/${item.item.imoveis_img}`
+ }} style={styles.image} />
       </TouchableOpacity>
-      )
-    
-            
-            
-  };
+    );
+
+
+
+  }
   
   const data = [
     {
@@ -145,6 +149,8 @@ const TabHomeScreen = ({navigation}) => {
         setColor('black');
       }
     };
+
+    
     useEffect(() => {
       // setActiveTab(arr)
       // console.log(arr)
@@ -166,7 +172,7 @@ const TabHomeScreen = ({navigation}) => {
               <Icon.Heart width={30} height={30} fill={color} color={color} />
             </TouchableOpacity>
           </View>
-          {/*<Carousel
+          <Carousel
             layout={'default'}
             loop={false}
 
@@ -175,7 +181,7 @@ const TabHomeScreen = ({navigation}) => {
               // console.log(index);
               setPosition(index);
             }}
-            data={item.imgUrl}
+            data={item.anuncios_imagens}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
             itemHeight={100}
@@ -187,7 +193,7 @@ const TabHomeScreen = ({navigation}) => {
               newArr[position] = i;
               setArray(newArr);
             }}
-          />*/}
+          />
           <View
             style={{
               position: 'absolute',
@@ -290,6 +296,8 @@ const TabHomeScreen = ({navigation}) => {
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         <FlatList
           data={anuncioListState}
+
+          
           renderItem={({item, index}) => {
             return <Cards item={item} index={index} />;
           }}
